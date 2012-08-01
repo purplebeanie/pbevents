@@ -1,0 +1,26 @@
+.pbevents-error-field {
+	border:1px solid red;
+	background-color: #FFFF66;
+}
+
+table#pbevents {
+	border-collapse:collapse;
+	border:0px;
+	margin:0px auto;
+}
+
+table#pbevents tr,td,th {
+	border:0px;
+	padding:5px;
+}
+
+table#pbevents input[type="text"],select {
+	width:200px;
+}
+
+.pbevents-fully-booked {
+	border: 1px solid green;
+	background-color: #C9F3C4;
+	padding:10px;
+	margin:10px;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="content">
+	<name>plg_content_pbevents</name>
+	<author>Eric Fernance</author>
+	<creationDate>May 2012</creationDate>
+	<copyright></copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>beanie@purplebeanie.com</authorEmail>
+	<authorUrl>www.purplebeanie.com</authorUrl>
+	<version>0.1</version>
+	<description>PLG_CONTENT_PBEVENTS_XML_DESCRIPTION</description>
+	
+	<files>
+		<filename plugin="pbevents">pbevents.php</filename>
+		<filename>index.html</filename>
+		<folder>scripts</folder>
+		<folder>styles</folder>
+	</files>
+	
+	<languages>
+		<language tag="en-GB">language/en-GB.plg_content_pbevents.ini</language>
+		<language tag="en-GB">language/en-GB.plg_content_pbevents.sys.ini</language>
+	</languages>
+	<config>
+		
+	</config>
+</extension>

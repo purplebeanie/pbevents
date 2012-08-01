@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+<name>PBEvents</name>
+<!-- The following elements are optional and free of formatting constraints -->
+ 
+<creationDate>2012-05-08</creationDate>
+<author>Eric Fernance</author>
+<authorEmail>beanie@purplebeanie.com</authorEmail>
+<authorUrl>http://www.purplebeanie.com</authorUrl>
+<copyright>Copyright Info</copyright>
+<license>License Info</license>
+<!--  The version string is recorded in the components table -->
+<version>0.1</version>
+<!-- The description is optional and defaults to the name -->
+<description>A component used for booking events.</description>
+
+<!-- Site Main File Copy Section -->
+<!-- Note the folder attribute: This attribute describes the folder
+  to copy FROM in the package to install therefore files copied
+  in this section are copied from /site/ in the package -->
+<files folder="front">
+	<filename>controller.php</filename>
+	<filename>index.html</filename>
+	<filename>pbevents.php</filename>
+	<folder>views</folder>
+</files> 
+
+<scriptfile>script.php</scriptfile>
+
+<languages>
+	<language tag="en-GB">languages/front/en-GB.com_pbevents.ini</language>
+</languages>
+
+	 
+<administration>
+	<!-- Administration Menu Section -->
+	<menu>Purple Beanie Events</menu>
+
+
+	<!-- Administration Main File Copy Section -->
+	<files folder="admin">
+	    <filename>pbevents.php</filename>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>install.sql</filename>
+		<filename>uninstall.sql</filename>
+		<folder>views</folder>
+		<folder>scripts</folder>
+		<folder>images</folder>
+	</files>
+	
+	<languages>
+		<language tag="en-GB">languages/admin/en-GB.com_pbevents.ini</language>
+	</languages>
+
+</administration>
+
+
+<install>
+	<sql>
+		<file charset="utf8" driver="mysql">install.sql</file>
+	</sql>
+</install>
+<uninstall>
+	<sql>
+		<file charset="utf8" driver="mysql">uninstall.sql</file>
+	</sql>
+</uninstall>
+
+
+</install>
