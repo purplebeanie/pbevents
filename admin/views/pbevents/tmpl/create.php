@@ -121,7 +121,7 @@ window.addEvent('domready', function(){
 							<td align="center"><input type="checkbox" name="is_email[0]" value="1"/></td>
 							<td>
 								<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
-								<!--<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png"/>-->
+								<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="del_table_row(this)" />
 							</td>
 						</tr>
 					<?php else:?>
@@ -145,7 +145,7 @@ window.addEvent('domready', function(){
 								<td align="center"><input type="checkbox" name="is_email[<?php echo $i;?>]" value="1" <?php echo (isset($field['is_email']) && $field['is_email'] == 1) ? 'checked' : null;?>/></td>
 								<td>
 									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
-									<!--<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png"/>-->
+									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="del_table_row(this)" />
 								</td>
 							</tr>
 							<?php $i++;?>
