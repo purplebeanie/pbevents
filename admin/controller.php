@@ -279,7 +279,7 @@ class PbeventsController extends JController
         $required = $input->get('required',null,'array');
         $is_email = $input->get('is_email',null,'array');
 
-        for ($i=0;$i<count($labels);$i++) {
+        foreach(array_keys($labels) as $i) {
             $fields[] = array('label'=>$labels[$i],'var'=>$vars[$i],'type'=>$types[$i],'values'=>$values[$i],'required'=>$required[$i],'is_email'=>$is_email[$i]);
         }
 

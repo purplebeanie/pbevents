@@ -35,3 +35,9 @@ function add_table_row(table)
 		} 
 	});
 }
+
+function del_table_row(element)
+{
+	var tr = element.parentNode.parentNode;
+	tr.parentNode.removeChild(tr);
+}
