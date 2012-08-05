@@ -161,10 +161,21 @@ class plgContentPbevents extends JPlugin
 
 		if ($event_id) {
 			$db = &JFactory::getDbo();
+			$db2 = &JFactory::getDbo();
 			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->getEscaped($event_id))->loadObject();
 			$data = array(); //contains the rsvp
 			foreach (json_decode($event->fields,true) as $field) {
 				$data[$field['var']] = ($field['type'] == 'checkbox') ? implode(',',$input->get($field['var'],null,'array')) : $input->get($field['var'],null,'string');
+
+
+				// Check if we have any unique settings in the db, we don't want to save else.
+				if ($field['unique'] ) {
+					$db2->setQuery('select count(*) from #__pbevents_rsvps where event_id = '.(int)$db->getEscaped($event_id).' and data like "%\"' . $field['var'] . '\":\"' . $input->getEscpaed($field['var']) . '\"%"');
+					if ($db2->loadResult() >= 1) {
+						print $field['var'] . ": ". $input->getEscpaed($field['var'])." is already registered, please go back and try again.<br/>";
+						return false;
+					}
+				}
 			}
 			$rsvp = new JObject(array('event_id'=>$event->id,'data'=>json_encode($data)));
 			if ($db->insertObject('#__pbevents_rsvps',$rsvp)) {
