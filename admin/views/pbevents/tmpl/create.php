@@ -99,6 +99,7 @@ window.addEvent('domready', function(){
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_LABEL');?></th>
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_VAR');?></th>
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_REQUIRED');?></th>
+						<th><?php echo JText::_('COM_PBEVENTS_FIELD_UNIQUE');?></th>
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE');?></th>
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_VALUES');?></th>
 						<th><?php echo Jtext::_('COM_PBEVENTS_FIELD_VALIDATE_AS_EMAIL');?></th>
@@ -109,6 +110,7 @@ window.addEvent('domready', function(){
 							<td><input type="text" name="label[0]" value=""/></td>
 							<td><input type="text" name="var[0]" value=""/></td>
 							<td align="center"><input type="checkbox" name="required[]" value="1"/></td>
+							<td align="center"><input type="checkbox" name="unique[]" value="1"/></td>
 							<td>
 								<select name="type[0]">
 									<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
@@ -131,6 +133,7 @@ window.addEvent('domready', function(){
 								<td><input type="text" name="label[<?php echo $i;?>]" value="<?php echo $field['label'];?>"/></td>
 								<td><input type="text" name="var[<?php echo $i;?>]" value="<?php echo $field['var'];?>"/></td>
 								<td align="center"><input type="checkbox" name="required[<?php echo $i;?>]" value="1" <?php echo (isset($field['required']) && $field['required'] == 1) ? 'checked' : null;?> /></td>
+								<td align="center"><input type="checkbox" name="unique[<?php echo $i;?>]" value="1" <?php echo (isset($field['unique']) && $field['unique'] == 1) ? 'checked' : null;?> /></td>
 								<td>
 									<select name="type[<?php echo $i;?>]">
 										<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
