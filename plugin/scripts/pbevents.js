@@ -34,6 +34,10 @@ function validate_form()
 					field_value=$$('input[name='+el['var']+']:checked').getLast().getProperty('value')
 				}
 				break;
+			case 'textarea':
+				field = $$('textarea[name='+el['var']+']');
+				field_value = $$('textarea[name='+el['var']+']').getLast().getProperty('value');
+				break;
 
 			default:
 				field = $$('input[name='+el['var']+']');
