@@ -102,7 +102,7 @@ class plgContentPbevents extends JPlugin
 					$form.='</td></tr>';
 					break;
 				case 'textarea':
-					$form .='<tr><td><label>'.$field['label'].'</kabe></td><td><textarea name="'.$field['var'].'"></textarea></td></tr>';
+					$form .='<tr><td><label>'.$field['label'].'</label></td><td><textarea name="'.$field['var'].'"></textarea></td></tr>';
 					break;
 				case 'checkbox':
 					$form.='<tr><td><label>'.$field['label'].'</label></td><td>';
