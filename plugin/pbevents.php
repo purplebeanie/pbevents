@@ -119,6 +119,9 @@ class plgContentPbevents extends JPlugin
 					}
 					$form .='</select></td></tr>';
 					break;
+				case 'separator':
+					$form .= '<tr><td colspan="2"><label>'.$field['label'].'</label></td>';
+					break;
 			}
 			
 		}
