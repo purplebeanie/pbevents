@@ -114,7 +114,7 @@ window.addEvent('domready', function(){
 							<td>
 								<select name="type[0]">
 									<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
-									<?php foreach (array('select','checkbox','text','textarea','radio') as $type) :?>
+									<?php foreach (array('select','checkbox','separator','text','textarea','radio') as $type) :?>
 										<option value="<?php echo $type;?>"><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
 									<?php endforeach;?> 
 								</select>
@@ -137,7 +137,7 @@ window.addEvent('domready', function(){
 								<td>
 									<select name="type[<?php echo $i;?>]">
 										<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
-										<?php foreach (array('select','checkbox','text','textarea','radio') as $type) :?>
+										<?php foreach (array('select','checkbox','separator','text','textarea','radio') as $type) :?>
 											<option value="<?php echo $type;?>"  
 												<?php echo ($field['type'] == $type) ? 'selected="true"' : null;?>
 											><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
