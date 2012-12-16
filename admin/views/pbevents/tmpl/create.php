@@ -128,31 +128,54 @@ window.addEvent('domready', function(){
 						</tr>
 					<?php else:?>
 						<?php $i=0;?>
-						<?php foreach (json_decode($this->event->fields,true) as $field) :?>
-							<tr>
-								<td><input type="text" name="label[<?php echo $i;?>]" value="<?php echo $field['label'];?>"/></td>
-								<td><input type="text" name="var[<?php echo $i;?>]" value="<?php echo $field['var'];?>"/></td>
-								<td align="center"><input type="checkbox" name="required[<?php echo $i;?>]" value="1" <?php echo (isset($field['required']) && $field['required'] == 1) ? 'checked' : null;?> /></td>
-								<td align="center"><input type="checkbox" name="unique[<?php echo $i;?>]" value="1" <?php echo (isset($field['unique']) && $field['unique'] == 1) ? 'checked' : null;?> /></td>
-								<td>
-									<select name="type[<?php echo $i;?>]">
-										<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
-										<?php foreach (array('select','checkbox','separator','text','textarea','radio') as $type) :?>
-											<option value="<?php echo $type;?>"  
-												<?php echo ($field['type'] == $type) ? 'selected="true"' : null;?>
-											><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
-										<?php endforeach;?> 
-									</select>
-								</td>
-								<td><input type="text" name="values[<?php echo $i;?>]" value="<?php echo ($field['values']);?>"/></td>
-								<td align="center"><input type="checkbox" name="is_email[<?php echo $i;?>]" value="1" <?php echo (isset($field['is_email']) && $field['is_email'] == 1) ? 'checked' : null;?>/></td>
-								<td>
-									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
-									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="del_table_row(this)" />
-								</td>
-							</tr>
-							<?php $i++;?>
-						<?php endforeach;?>
+						<?php if (count(json_decode($this->event->fields,true))>0) :?>
+							<?php foreach (json_decode($this->event->fields,true) as $field) :?>
+								<tr>
+									<td><input type="text" name="label[<?php echo $i;?>]" value="<?php echo $field['label'];?>"/></td>
+									<td><input type="text" name="var[<?php echo $i;?>]" value="<?php echo $field['var'];?>"/></td>
+									<td align="center"><input type="checkbox" name="required[<?php echo $i;?>]" value="1" <?php echo (isset($field['required']) && $field['required'] == 1) ? 'checked' : null;?> /></td>
+									<td align="center"><input type="checkbox" name="unique[<?php echo $i;?>]" value="1" <?php echo (isset($field['unique']) && $field['unique'] == 1) ? 'checked' : null;?> /></td>
+									<td>
+										<select name="type[<?php echo $i;?>]">
+											<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
+											<?php foreach (array('select','checkbox','separator','text','textarea','radio') as $type) :?>
+												<option value="<?php echo $type;?>"  
+													<?php echo ($field['type'] == $type) ? 'selected="true"' : null;?>
+												><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
+											<?php endforeach;?> 
+										</select>
+									</td>
+									<td><input type="text" name="values[<?php echo $i;?>]" value="<?php echo ($field['values']);?>"/></td>
+									<td align="center"><input type="checkbox" name="is_email[<?php echo $i;?>]" value="1" <?php echo (isset($field['is_email']) && $field['is_email'] == 1) ? 'checked' : null;?>/></td>
+									<td>
+										<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
+										<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="del_table_row(this)" />
+									</td>
+								</tr>
+								<?php $i++;?>
+							<?php endforeach;?>
+						<?php else:?>
+								<tr>
+									<td><input type="text" name="label[0]" value=""/></td>
+									<td><input type="text" name="var[0]" value=""/></td>
+									<td align="center"><input type="checkbox" name="required[0]" value="1" /></td>
+									<td align="center"><input type="checkbox" name="unique[0]" value="1"  /></td>
+									<td>
+										<select name="type[0]">
+											<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
+											<?php foreach (array('select','checkbox','separator','text','textarea','radio') as $type) :?>
+												<option value="<?php echo $type;?>"><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
+											<?php endforeach;?> 
+										</select>
+									</td>
+									<td><input type="text" name="values[0]" value=""/></td>
+									<td align="center"><input type="checkbox" name="is_email[0]" value="1" /></td>
+									<td>
+										<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
+										<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="del_table_row(this)" />
+									</td>
+								</tr>
+						<?php endif;?>
 					<?php endif;?>
 
 				</table>
