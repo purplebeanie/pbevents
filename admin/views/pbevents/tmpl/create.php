@@ -84,6 +84,10 @@ window.addEvent('domready', function(){
 					<td><label><?php echo JText::_('COM_PBEVENTS_FAIL_URL');?></label></td>
 					<td><input type="text" name="failed_page" value="<?php echo (isset($this->event->failed_page)) ? $this->event->failed_page : null;?>" size="80"/></td>
 				</tr>
+				<tr>
+					<td><label><?php echo JText::_('COM_PBEVENTS_SHOW_COUNTER');?></label></td>
+					<td><input type="hidden" name="show_counter" value="0"><input type="checkbox" name="show_counter" value="1" <?php echo (isset($this->event->show_counter) && $this->event->show_counter == 1) ? 'checked' : null;?>></td>
+				</tr>
 			</table>
 			
 		</fieldset>

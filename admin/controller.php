@@ -144,7 +144,8 @@ class PbeventsController extends JControllerLegacy
                                     'confirmation_page'=>$input->get('confirmation_page',null,'string'),
                                     'failed_page'=>$input->get('failed_page',null,'string'),
                                     'email_admin_success'=>$input->get('email_admin_success',0,'integer'),'email_admin_failure'=>$input->get('email_admin_failure',0,'integer'),
-                                    'send_notifications_to'=>$input->get('send_notifications_to',null,'string')
+                                    'send_notifications_to'=>$input->get('send_notifications_to',null,'string'),
+                                    'show_counter'=>$input->get('show_counter',0,'integer')
                                     ));
         $db = JFactory::getDbo();
 
