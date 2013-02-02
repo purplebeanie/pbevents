@@ -41,10 +41,13 @@ class plgContentPbevents extends JPlugin
 				//do i need to inject? GET or POST
 				if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					//build the form up
-					if ($event->max_people == 0 || count($attendees)<$event->max_people) {
+					if ($event->publish == 1 && ($event->max_people == 0 || count($attendees)<$event->max_people)) {
 						$form = $this->_build_form($event);
 					} else {
-						$form = $this->_display_busy_event();
+						if ($event->publish == 0)
+							$form = $this->_displayEventClosed();
+						else
+							$form = $this->_display_busy_event();
 					}
 
 					//inject the form, javascript and, css
@@ -143,6 +146,20 @@ class plgContentPbevents extends JPlugin
 		$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 
 		$form = '<div class="pbevents-fully-booked">'.JText::_('COM_PBEVENTS_EVENT_FULL_ERROR').'</div>';
+		return $form;
+	}
+
+
+	/**
+	* the event is now closed
+	*/
+	private function _displayEventClosed()
+	{
+		//load the language strings
+		$lang = JFactory::getLanguage();
+		$lang->load('com_pbevents',JPATH_ADMINISTRATOR);
+
+		$form = '<div class="pbevents-fully-booked">'.JText::_('COM_PBEVENTS_EVENT_UNPUBLISHED_ERROR').'</div>';
 		return $form;
 	}
 
