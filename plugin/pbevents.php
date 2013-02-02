@@ -37,6 +37,7 @@ class plgContentPbevents extends JPlugin
 				$query = $db->getQuery(true);
 				$query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.(int)$event->id);
 				$attendees = $db->setQuery($query)->loadObjectList();
+				$event->attendees = count($attendees);
 				
 				//do i need to inject? GET or POST
 				if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -89,8 +90,15 @@ class plgContentPbevents extends JPlugin
 
 	private function _build_form($event)
 	{
+		//load the language strings
+		$lang = JFactory::getLanguage();
+		$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
+
 		$form = '<form action="" method="POST">';
 		$form .= '<table id="pbevents">';
+
+		if ($event->show_counter == 1)
+			$form .= '<tr><td colspan=2" class="hitCounter">'.sprintf(JText::_('COM_PBEVENTS_HIT_COUNTER_FORMAT'),($event->max_people - $event->attendees)).'</td></tr>';
 		foreach (json_decode($event->fields,true) as $field) {
 			switch($field['type']) {
 				case 'text':
