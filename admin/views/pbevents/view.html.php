@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
  
  
-class PbeventsViewPbevents extends JView
+class PbeventsViewPbevents extends JViewLegacy
 {
     function display($tpl = null)
     {

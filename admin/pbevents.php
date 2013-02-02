@@ -10,6 +10,8 @@
  
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+define('PBEVENTS_MODE','debug');
+
  
 // Require specific controller if requested
 if($controller = JRequest::getWord('controller')) {

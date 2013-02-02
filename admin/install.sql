@@ -17,6 +17,10 @@ CREATE TABLE `#__pbevents_events` (
   `email_admin_failure` tinyint(1) DEFAULT '0',
   `failed_page` varchar(256) DEFAULT NULL,
   `send_notifications_to` varchar(256) DEFAULT NULL,
+  `send_client_confirmation` tinyint(1) DEFAULT '0',
+  `client_confirmation_subject` varchar(256),
+  `client_confirmation_message` text,
+  `publish` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
 );
 

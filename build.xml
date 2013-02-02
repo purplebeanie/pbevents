@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="com_pbeasyshop" basedir=".">
+	
+	<xmlproperty file="pbevents.xml" keepRoot="false"/>
+	<property name="component" value="com_pbevents"/>
+	<property name="joom_install_15" value="/Applications/mamp/htdocs/joomla15/"/>
+	<property name="joom_install_25" value="/Applications/mamp/htdocs/joomla25pbb24/"/>
+
+	<fileset id="fs_front" dir="front/."/>
+	<fileset id="fs_admin" dir="admin/."/>
+	<fileset id="fs_admin_lang" dir="languages/admin/."/>
+	<fileset id="fs_front_lang" dir="languages/front/."/>
+
+
+	
+	<target name="joomla15">
+	
+		<copy todir="${joom_install_15}administrator/components/${component}/" overwrite="false">
+			<fileset dir="admin">
+			</fileset>
+		</copy>
+		
+		<copy todir="${joom_install_15}components/${component}/" overwrite="false">
+			<fileset refid="fs_front">
+			</fileset>
+		</copy>
+		
+		<copy todir="${joom_install_15}administrator/language/en-GB/" overwrite="false">
+			<fileset refid="fs_admin_lang"/>
+		</copy>
+		<copy todir="${joom_install_15}language/en-GB/" overwrite="false">
+			<fileset refid="fs_front_lang"/>
+		</copy>
+
+	</target>
+
+
+
+	<target name="joomla25">
+	
+		<copy todir="${joom_install_25}administrator/components/${component}/" overwrite="true">
+			<fileset dir="admin">
+			</fileset>
+		</copy>
+		
+		<copy todir="${joom_install_25}components/${component}/" overwrite="true">
+			<fileset refid="fs_front">
+			</fileset>
+		</copy>
+		
+		<copy todir="${joom_install_25}administrator/language/en-GB/" overwrite="true">
+			<fileset refid="fs_admin_lang"/>
+		</copy>
+		<copy todir="${joom_install_25}language/en-GB/" overwrite="true">
+			<fileset refid="fs_front_lang"/>
+		</copy>
+
+		<copy todir="${joom_install_25}plugins/content/pbevents/" overwrite="true">
+			<fileset dir="plugin/."/>
+		</copy>
+		<copy todir="${joom_install_25}administrator/language/en-GB/" overwrite="true">
+			<fileset dir="plugin/language/."/>
+		</copy>
+
+		<delete dir="/Users/eric/Documents/Development/staging/latest/joomla25/sources/${component}"/>
+
+		<copy todir="/Users/eric/Documents/Development/staging/latest/joomla25/sources/${component}/" overwrite="true">
+			<fileset dir=".">
+				<exclude name=".externalToolBuilders/*"/>
+				<exclude name=".settings/*"/>
+				<exclude name=".buildpath"/>
+				<exclude name=".git/*"/>
+				<exclude name="build.xml"/>
+				<exclude name=".project"/>
+			</fileset>
+		</copy>
+
+		<delete file="/Users/eric/Documents/Development/staging/latest/joomla25/${component}.${version}j25j3.zip"/>
+
+		<zip destfile="/Users/eric/Documents/Development/staging/latest/joomla25/${component}.${version}j25j3.zip" update="false"
+			basedir="/Users/eric/Documents/Development/staging/latest/joomla25/sources/${component}"/>
+		
+	</target>
+
+	
+		
+	
+
+
+
+</project>
+

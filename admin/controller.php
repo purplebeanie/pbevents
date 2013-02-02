@@ -9,13 +9,13 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
  
-jimport('joomla.application.component.controller');
+jimport('joomla.application.component.controlleradmin');
 jimport('joomla.html.pagination');
 jimport('joomla.application.input');
  
 
 
-class PbeventsController extends JController
+class PbeventsController extends JControllerLegacy
 {
     /**
      * Method to display the view
@@ -41,14 +41,20 @@ class PbeventsController extends JController
         JToolBarHelper::title( JText::_( 'COM_PBEVENTS_EVENTS_MANAGER' ).' '.JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'generic.png' );
         JToolBarHelper::addNew('add');
 
+
         //get offset if needed
         $input = JFactory::getApplication()->input;
         $limit = $input->get('limit',20,'integer');
         $limitstart = $input->get('limitstart',0,'integer');
+        $filter_published = $input->get('filter_published','*','string');
 
         $db = &JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*')->from('#__pbevents_events');
+
+        if ($filter_published != '*')
+            $query->where('publish = '.(int)$filter_published);
+
         $events = $db->setQuery($query)->loadObjectList();
 
         //get attendees for events and set date to the right timezone!
@@ -72,6 +78,7 @@ class PbeventsController extends JController
         $view->setLayout('listevents');
         $view->events = $events;
         $view->pagination = new JPagination($total_records,$limitstart,$limit);
+        $view->filter_published = $filter_published;
 
         $view->display();
     }
@@ -259,6 +266,39 @@ class PbeventsController extends JController
             $db->updateObject('#__pbevents_config',$config,'id'); 
             $this->setRedirect(JURI::root(false).'administrator/index.php?option=com_pbevents',Jtext::_('COM_PBEVENTS_CONFIG_UPDATE'));
         }
+    }
+
+
+    /**
+    * responds to the publish function
+    */
+
+    public function publish()
+    {
+        echo print_r($_REQUEST);
+        $db = &JFactory::getDbo();
+        $input = &JFactory::getApplication()->input;
+
+        $cids = $input->get('cid',null,'array');
+        foreach ($cids as $cid)
+            $db->updateObject('#__pbevents_events',new JObject(array('id'=>(int)$cid,'publish'=>1)),'id');
+        $this->setRedirect(JURI::root(false).'administrator/index.php?option=com_pbevents&task=listevents');
+    }
+
+    /**
+    * responds to the unpublish function
+    */
+
+    public function unpublish()
+    {
+        $db = &JFactory::getDbo();
+        $input = &JFactory::getApplication()->input;
+
+        $cids = $input->get('cid',null,'array');
+        foreach ($cids as $cid)
+            $db->updateObject('#__pbevents_events', new JObject(array('id'=>(int)$cid,'publish'=>0)),'id');
+        $this->setRedirect(JURI::root(false).'administrator/index.php?option=com_pbevents&task=listevents');
+
     }
 
     /**

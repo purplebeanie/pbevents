@@ -17,6 +17,26 @@ defined('_JEXEC') or die('Restricted access');
 
 
 <form action="<?php echo JRoute::_('index.php?option=com_pbevents&task=listevents');?>" method="post" name="adminForm" id="adminForm">  
+
+	<fieldset id="filter-bar">
+		<!--<div class="filter-search fltlft">
+			<label class="filter-search-lbl" for="filter_search"><?php echo JText::_('JSEARCH_FILTER_LABEL'); ?></label>
+			<input type="text" name="filter_search" id="filter_search" value="<?php echo $this->escape($this->filter_search); ?>" title="<?php echo JText::_('COM_CONTENT_FILTER_SEARCH_DESC'); ?>" />
+
+			<button type="submit" class="btn"><?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
+			<button type="button" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
+		</div>-->
+		<div class="filter-select fltrt">
+			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
+				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->filter_published, true);?>
+			</select>
+
+		</div>
+	</fieldset>
+	<div class="clr"> </div>
+		
+		
 	<table class="adminlist">
 		<thead>
 			<tr>
@@ -41,11 +61,12 @@ defined('_JEXEC') or die('Restricted access');
 				<th>
 					<?php echo JText::_('COM_PBEVENTS_ATTENDEES');?>
 				</th>
+				<th><?php echo JText::_('COM_PBEVENTS_EVENT_ARCHIVED');?></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="7">
+				<td colspan="8">
 					<?php echo $this->pagination->getListFooter(); ?>
 				</td>
 			</tr>
@@ -77,6 +98,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td class="center">
 					<a href="<?php echo JURI::root(false);?>administrator/index.php?option=com_pbevents&task=viewattendees&id=<?php echo $event->id;?>"><?php echo count($event->attendees);?></a>
 				</td>
+				<td class="center"><?php echo JHtml::_('jgrid.published', $event->publish, $i); ?></td>
 			</tr>
 		<?php endforeach;?>
 		</tbody>
