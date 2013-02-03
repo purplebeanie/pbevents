@@ -51,6 +51,7 @@ class PbeventsController extends JControllerLegacy
         $db = &JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*')->from('#__pbevents_events');
+        $query->order('dtstart DESC');
 
         if ($filter_published != '*')
             $query->where('publish = '.(int)$filter_published);
