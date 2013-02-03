@@ -145,7 +145,8 @@ class PbeventsController extends JControllerLegacy
                                     'failed_page'=>$input->get('failed_page',null,'string'),
                                     'email_admin_success'=>$input->get('email_admin_success',0,'integer'),'email_admin_failure'=>$input->get('email_admin_failure',0,'integer'),
                                     'send_notifications_to'=>$input->get('send_notifications_to',null,'string'),
-                                    'show_counter'=>$input->get('show_counter',0,'integer')
+                                    'show_counter'=>$input->get('show_counter',0,'integer'),
+                                    'show_attendees'=>$input->get('show_attendees',0,'integer')
                                     ));
         $db = JFactory::getDbo();
 
@@ -319,9 +320,10 @@ class PbeventsController extends JControllerLegacy
         $values = $input->get('values',null,'array');
         $required = $input->get('required',null,'array');
         $is_email = $input->get('is_email',null,'array');
+        $display_in_list = $input->get('display_in_list',null,'array');
 
         for ($i=0;$i<count($labels);$i++) {
-            $fields[] = array('label'=>$labels[$i],'var'=>$vars[$i],'type'=>$types[$i],'values'=>$values[$i],'required'=>$required[$i],'is_email'=>$is_email[$i]);
+            $fields[] = array('label'=>$labels[$i],'var'=>$vars[$i],'type'=>$types[$i],'values'=>$values[$i],'required'=>$required[$i],'is_email'=>$is_email[$i],'display_in_list'=>$display_in_list[$i]);
         }
 
         return $fields;

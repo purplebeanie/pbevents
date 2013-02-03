@@ -88,6 +88,10 @@ window.addEvent('domready', function(){
 					<td><label><?php echo JText::_('COM_PBEVENTS_SHOW_COUNTER');?></label></td>
 					<td><input type="hidden" name="show_counter" value="0"><input type="checkbox" name="show_counter" value="1" <?php echo (isset($this->event->show_counter) && $this->event->show_counter == 1) ? 'checked' : null;?>></td>
 				</tr>
+				<tr>
+					<td><label><?php echo JText::_('COM_PBEVENTS_SHOW_ATTENDEES');?></label></td>
+					<td><input type="hidden" name="show_attendees" value="0"><input type="checkbox" name="show_attendees" value="1" <?php echo (isset($this->event->show_attendees) && $this->event->show_attendees == 1) ? 'checked' : null;?>></td>
+				</tr>
 			</table>
 			
 		</fieldset>
@@ -106,6 +110,7 @@ window.addEvent('domready', function(){
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE');?></th>
 						<th><?php echo JText::_('COM_PBEVENTS_FIELD_VALUES');?></th>
 						<th><?php echo Jtext::_('COM_PBEVENTS_FIELD_VALIDATE_AS_EMAIL');?></th>
+						<th><?php echo Jtext::_('COM_PBEVENTS_DISPLAY_IN_FRONT_END_ATTENDEE_LIST');?></th>
 						<th></th>
 					</tr>
 					<?php if (!isset($this->event->fields) || $this->event->fields == '') :?>
@@ -123,6 +128,7 @@ window.addEvent('domready', function(){
 							</td>
 							<td><input type="text" name="values[0]" value=""/></td>
 							<td align="center"><input type="checkbox" name="is_email[0]" value="1"/></td>
+							<td align="center"><input type="checkbox" name="display_in_list[0]" value="1"/></td>
 							<td>
 								<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
 								<!--<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png"/>-->
@@ -147,6 +153,8 @@ window.addEvent('domready', function(){
 								</td>
 								<td><input type="text" name="values[<?php echo $i;?>]" value="<?php echo ($field['values']);?>"/></td>
 								<td align="center"><input type="checkbox" name="is_email[<?php echo $i;?>]" value="1" <?php echo (isset($field['is_email']) && $field['is_email'] == 1) ? 'checked' : null;?>/></td>
+								<td align="center"><input type="checkbox" name="display_in_list[<?php echo $i;?>]" value="1" <?php echo (isset($field['display_in_list']) && $field['display_in_list'] == 1) ? 'checked' : null;?>/></td>
+
 								<td>
 									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
 									<!--<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png"/>-->

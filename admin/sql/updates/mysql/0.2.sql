@@ -3,5 +3,6 @@ ALTER TABLE `#__pbevents_events` ADD COLUMN(
   `client_confirmation_subject` varchar(256),
   `client_confirmation_message` text,
   `publish` tinyint(1) DEFAULT 1,
-  `show_counter` tinyint(1) DEFAULT 0
+  `show_counter` tinyint(1) DEFAULT 0,
+  `show_attendees` tinyint(1) DEFAULT 0
   );

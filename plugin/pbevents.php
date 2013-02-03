@@ -38,6 +38,7 @@ class plgContentPbevents extends JPlugin
 				$query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.(int)$event->id);
 				$attendees = $db->setQuery($query)->loadObjectList();
 				$event->attendees = count($attendees);
+				$event->attendeesList = $attendees;
 				
 				//do i need to inject? GET or POST
 				if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -99,6 +100,8 @@ class plgContentPbevents extends JPlugin
 
 		if ($event->show_counter == 1)
 			$form .= '<tr><td colspan=2" class="hitCounter">'.sprintf(JText::_('COM_PBEVENTS_HIT_COUNTER_FORMAT'),($event->max_people - $event->attendees)).'</td></tr>';
+		if ($event->show_attendees == 1)
+			$form .= $this->_addAttendeesList($event);
 		foreach (json_decode($event->fields,true) as $field) {
 			switch($field['type']) {
 				case 'text':
@@ -170,6 +173,35 @@ class plgContentPbevents extends JPlugin
 		$form = '<div class="pbevents-fully-booked">'.JText::_('COM_PBEVENTS_EVENT_UNPUBLISHED_ERROR').'</div>';
 		return $form;
 	}
+
+	/**
+	* adds the attendees list to the form
+	* @param object the event
+	* @return string html list inside a table row
+	*/
+
+	private function _addAttendeesList($event)
+	{
+		//load the language strings
+		$lang = JFactory::getLanguage();
+		$lang->load('com_pbevents',JPATH_ADMINISTRATOR);
+
+		$html = '<tr><td colspan="2" class="attendeesList"><p><strong>'.JText::_('COM_PBEVENTS_SHOW_ATTENDEES_INTRO').'</strong></p><ul>';
+		foreach ($event->attendeesList as $attendee) {
+			$attendeeData = json_decode($attendee->data,true);
+			$dataFields = json_decode($event->fields,true);
+			
+			$html .= '<li>';
+			foreach ($dataFields as $field)
+				if (isset($field['display_in_list']) && $field['display_in_list'] == 1)
+					$html .= $attendeeData[$field['var']].JText::_('COM_PBEVENTS_DISPLAY_IN_FRONT_END_ATTENDEE_LIST_SPACE');
+			$html .= '</li>';
+		}
+		$html .= '</ul>';
+
+		return $html;
+	}
+
 
 	/**
 	* process the data back from the user and store in the event.

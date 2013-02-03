@@ -22,6 +22,7 @@ CREATE TABLE `#__pbevents_events` (
   `client_confirmation_message` text,
   `publish` tinyint(1) DEFAULT 1,
   `show_counter` tinyint(1) DEFAULT 1,
+  `show_attendees` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 

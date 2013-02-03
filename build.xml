@@ -38,6 +38,10 @@
 
 	<target name="joomla25">
 	
+		<!-- clean the old stuff up first -->
+		<delete dir="${joom_install_25}administrator/components/${component}" />
+		<delete dir="${joom_install_25}components/${component}" />
+	
 		<copy todir="${joom_install_25}administrator/components/${component}/" overwrite="true">
 			<fileset dir="admin">
 			</fileset>
@@ -61,6 +65,10 @@
 		<copy todir="${joom_install_25}administrator/language/en-GB/" overwrite="true">
 			<fileset dir="plugin/language/."/>
 		</copy>
+		
+		<copy file="pbevents.xml" todir="${joom_install_25}administrator/components/${component}/" overwrite="true"/>
+		
+		
 
 		<delete dir="/Users/eric/Documents/Development/staging/latest/joomla25/sources/${component}"/>
 
