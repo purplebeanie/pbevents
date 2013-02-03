@@ -10,7 +10,15 @@
  
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+$version = new JVersion();
+$input = JFactory::getApplication()->input;
+$task = $input->get('task',null,'string');
+
+
 define('PBEVENTS_MODE','debug');
+define('JOOMLA_VERSION',$version->RELEASE);
+if ($version->RELEASE == '3.0')
+	define('DS',DIRECTORY_SEPARATOR);
 
  
 // Require specific controller if requested
@@ -27,9 +35,16 @@ if (!$controller) {
 	$controller = '';
 }
 
+
 //setup submenu items
-JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_CONFIGURATION'),'index.php?option=com_pbevents&task=editconfiguration');
-JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'index.php?option=com_pbevents&task=listevents');
+if ($version->RELEASE == '3.0') {
+	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_CONFIGURATION'),'index.php?option=com_pbevents&task=editconfiguration',($task == 'editconfiguration'));
+	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'index.php?option=com_pbevents&task=listevents', ($task == 'listevents'));
+} else {
+	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_CONFIGURATION'),'index.php?option=com_pbevents&task=editconfiguration');
+	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'index.php?option=com_pbevents&task=listevents');
+
+}
 
 
 // Require the base controller

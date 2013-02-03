@@ -16,7 +16,19 @@ class PbeventsViewPbevents extends JViewLegacy
 {
     function display($tpl = null)
     {
-			
+		$input = JFactory::getApplication()->input;
+		$task = JRequest::getVar('task');
+
+		switch ($task) {
+			case 'editconfiguration':
+				$input->set('hidemainmenu',true);
+				break;
+		}
+
+        // display...... do I need to modify the layout?????
+        if (JOOMLA_VERSION == '3.0')
+        	$this->setLayout($this->getLayout().'v3');
+
 		parent::display($tpl);
     }
 }
