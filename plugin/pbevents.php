@@ -25,14 +25,13 @@ class plgContentPbevents extends JPlugin
 	 * @return	boolean	True on success.
 	 */
 	public function onContentPrepare($context, &$row, &$params, $page = 0)
-	{
-		
+	{		
 		$article = $row->text;
 
 		if (preg_match('/\{pbevents=(\d+)\}/',$article,$matches)) {
 			//get the event details
 			$db = &JFactory::getDbo();
-			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->getEscaped($matches[1]))->loadObject();
+			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->escape($matches[1]))->loadObject();
 			if ($event) {
 				$query = $db->getQuery(true);
 				$query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.(int)$event->id);

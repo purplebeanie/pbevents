@@ -41,19 +41,18 @@ class PbeventsController extends JControllerLegacy
         JToolBarHelper::title( JText::_( 'COM_PBEVENTS_EVENTS_MANAGER' ).' '.JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'generic.png' );
         JToolBarHelper::addNew('add');
 
-
         //get offset if needed
         $input = JFactory::getApplication()->input;
         $limit = $input->get('limit',20,'integer');
         $limitstart = $input->get('limitstart',0,'integer');
-        $filter_published = $input->get('filter_published','*','string');
+        $filter_published = $input->get('filter_published',null,'string');
 
         $db = &JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*')->from('#__pbevents_events');
         $query->order('dtstart DESC');
 
-        if ($filter_published != '*')
+        if (isset($filter_published) && $filter_published != '*')
             $query->where('publish = '.(int)$filter_published);
 
         $events = $db->setQuery($query)->loadObjectList();
@@ -65,8 +64,8 @@ class PbeventsController extends JControllerLegacy
             $query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.(int)$event->id);
             $attendees = $db->setQuery($query)->loadObjectList();
             $event->attendees = $attendees;
-            $event->dtstart = new DateTime($event->dtstart,new DateTimeZone($config->getValue('config.offset')));
-            $event->dtend = new DateTime($event->dtend,new DateTimeZone($config->getValue('config.offset')));
+            $event->dtstart = new DateTime($event->dtstart,new DateTimeZone($config->get('offset')));
+            $event->dtend = new DateTime($event->dtend,new DateTimeZone($config->get('offset')));
         }
 
         $total_records = count($events);
@@ -188,11 +187,11 @@ class PbeventsController extends JControllerLegacy
         if ($event_id) {
             $db = JFactory::getDbo();
             $query = $db->getQuery(true);
-            $query->select('*')->from('#__pbevents_events')->where('id = '.$db->getEscaped($event_id));
+            $query->select('*')->from('#__pbevents_events')->where('id = '.$db->escape($event_id));
             $view->event = $db->setQuery($query)->loadObject();
             if ($view->event) {
                 $query = $db->getQuery(true);
-                $query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.$db->getEscaped($view->event->id));
+                $query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.$db->escape($view->event->id));
                 $view->attendees = $db->setQuery($query)->loadObjectList();
                 $total_records = count($view->attendees);
                 if ($limit>0)
