@@ -131,7 +131,7 @@ window.addEvent('domready', function(){
 							<td align="center"><input type="checkbox" name="display_in_list[0]" value="1"/></td>
 							<td>
 								<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
-								<!--<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png"/>-->
+								<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="deleteTableRow('event-fields',0)"/>
 							</td>
 						</tr>
 					<?php else:?>
@@ -157,7 +157,7 @@ window.addEvent('domready', function(){
 
 								<td>
 									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/add.png" onclick="add_table_row('#event-fields')"/>
-									<!--<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png"/>-->
+									<img src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/images/delete.png" onclick="deleteTableRow('event-fields',<?php echo $i;?>)"/>
 								</td>
 							</tr>
 							<?php $i++;?>

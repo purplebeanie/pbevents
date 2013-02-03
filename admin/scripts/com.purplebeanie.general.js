@@ -35,3 +35,14 @@ function add_table_row(table)
 		} 
 	});
 }
+
+
+function deleteTableRow(table,row)
+{
+	var table = document.getElementById(table);
+	var targetRow = row+1;
+	table.getElements('tr').each(function(el,idx){
+		if (idx == targetRow)
+			el.parentNode.removeChild(el);
+	});
+}
