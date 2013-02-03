@@ -52,6 +52,7 @@ class plgContentPbevents extends JPlugin
 					}
 
 					//inject the form, javascript and, css
+					JHtml::_('behavior.framework');
 					$doc = &JFactory::getDocument();
 					$doc->addScript(JURI::root(false).'plugins/content/pbevents/scripts/pbevents.js');
 					$doc->addScriptDeclaration('var fields = '.$event->fields);
