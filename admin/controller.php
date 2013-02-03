@@ -322,10 +322,18 @@ class PbeventsController extends JControllerLegacy
         $required = $input->get('required',null,'array');
         $is_email = $input->get('is_email',null,'array');
         $display_in_list = $input->get('display_in_list',null,'array');
+        $ordering = $input->get('ordering',null,'array');
 
         for ($i=0;$i<count($labels);$i++) {
-            $fields[] = array('label'=>$labels[$i],'var'=>$vars[$i],'type'=>$types[$i],'values'=>$values[$i],'required'=>$required[$i],'is_email'=>$is_email[$i],'display_in_list'=>$display_in_list[$i]);
+            $fields[] = array('label'=>$labels[$i],'var'=>$vars[$i],'type'=>$types[$i],'values'=>$values[$i],'required'=>$required[$i],'is_email'=>$is_email[$i],'display_in_list'=>$display_in_list[$i],'ordering'=>$ordering[$i]);
         }
+
+        usort($fields, function($a, $b) {
+            if ($a['ordering'] == $b['ordering'])
+                return 0;
+            else
+                return ($a['ordering'] < $b['ordering'] ? -1 : 1); 
+        });
 
         return $fields;
 
