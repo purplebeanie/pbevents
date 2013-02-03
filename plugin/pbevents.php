@@ -218,7 +218,7 @@ class plgContentPbevents extends JPlugin
 
 		if ($event_id) {
 			$db = &JFactory::getDbo();
-			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->getEscaped($event_id))->loadObject();
+			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->escape($event_id))->loadObject();
 			$data = array(); //contains the rsvp
 			foreach (json_decode($event->fields,true) as $field) {
 				$data[$field['var']] = ($field['type'] == 'checkbox') ? implode(',',$input->get($field['var'],null,'array')) : $input->get($field['var'],null,'string');
@@ -249,7 +249,7 @@ class plgContentPbevents extends JPlugin
 		$lang = JFactory::getLanguage();
 		$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 
-		//get the config both from pbevents and joomla config.
+		//get the config both from pbevents and joomla 
 		$db = &JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('*')->from('#__pbevents_config')->where('id = 1');
@@ -261,8 +261,8 @@ class plgContentPbevents extends JPlugin
 		$email_subject = ($status == 'success') ? $config->email_success_subject : $config->email_failed_subject;
 
 		$event_details = sprintf('<ul><li>%s = %s</li><li>%s = %s</li><li>%s = %s</li></ul>',JText::_('COM_PBEVENTS_EVENT_NAME'),$event->event_name,
-								JText::_('COM_PBEVENTS_START'),JHTML::_('date',date_create($event->dtstart,new DateTimeZone($joomla_config->getValue('config.offset')))->format(DATE_ATOM),JText::_('COM_PBEVENTS_EMAIL_DATE_TIME_FORMAT')),
-								JText::_('COM_PBEVENTS_END'),JHTML::_('date',date_create($event->dtend,new DateTimeZone($joomla_config->getValue('config.offset')))->format(DATE_ATOM),JText::_('COM_PBEVENTS_EMAIL_DATE_TIME_FORMAT')));
+								JText::_('COM_PBEVENTS_START'),JHTML::_('date',date_create($event->dtstart,new DateTimeZone($joomla_config->get('offset')))->format(DATE_ATOM),JText::_('COM_PBEVENTS_EMAIL_DATE_TIME_FORMAT')),
+								JText::_('COM_PBEVENTS_END'),JHTML::_('date',date_create($event->dtend,new DateTimeZone($joomla_config->get('offset')))->format(DATE_ATOM),JText::_('COM_PBEVENTS_EMAIL_DATE_TIME_FORMAT')));
 		$rsvp_details = '<ul>';
 		foreach (json_decode($event->fields,true) as $field) {
 			$rsvp_details .= '<li>'.$field['label'].' - ';
@@ -278,7 +278,7 @@ class plgContentPbevents extends JPlugin
 		$email_body .= '<p>'.JText::_('COM_PBEVENTS_REMOTE_ADDR').' '.$_SERVER['REMOTE_ADDR'].'</p>';
 
 		$mailer =& JFactory::getMailer();
-		$mailer->setSender(array($joomla_config->getValue('config.mailfrom'),$joomla_config->getValue('config.fromname')));
+		$mailer->setSender(array($joomla_config->get('mailfrom'),$joomla_config->get('fromname')));
 		
 		$mailer->addRecipient($event->send_notifications_to);
 		$mailer->setSubject($email_subject);
