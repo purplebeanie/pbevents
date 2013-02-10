@@ -38,9 +38,11 @@ if (!$controller) {
 
 //setup submenu items
 if ($version->RELEASE == '3.0') {
+	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_DASHBOARD'),'index.php?option=com_pbevents',($task == null || $task=='display'));
 	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_CONFIGURATION'),'index.php?option=com_pbevents&task=editconfiguration',($task == 'editconfiguration'));
 	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'index.php?option=com_pbevents&task=listevents', ($task == 'listevents'));
 } else {
+	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_DASHBOARD'),'index.php?option=com_pbevents');
 	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_CONFIGURATION'),'index.php?option=com_pbevents&task=editconfiguration');
 	JSubMenuHelper::addEntry(JText::_('COM_PBEVENTS_ADMIN_LIST_EVENTS'), 'index.php?option=com_pbevents&task=listevents');
 

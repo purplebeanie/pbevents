@@ -25,7 +25,24 @@ class PbeventsController extends JControllerLegacy
     function display()
     {   
         JToolBarHelper::title( JText::_( 'PBEvents Manager' ), 'generic.png' );
-        parent::display();
+
+        $view = $this->getView('pbevents','html');
+        $view->setLayout('default');
+
+        //load in the dashboard variables
+        $db = &JFactory::getDbo();
+        $config = JFactory::getConfig();
+        $query = $db->getQuery(true);
+        $query->select('#__pbevents_rsvps.*,#__pbevents_events.event_name,#__pbevents_events.fields')->from('#__pbevents_rsvps')->join('left','#__pbevents_events on #__pbevents_rsvps.event_id = #__pbevents_events.id')->order('#__pbevents_rsvps.id DESC')->limit(10);
+        $view->rsvps = $db->setQuery($query)->loadObjectList();
+        $query = $db->getQuery(true);
+        $query->select('#__pbevents_events.*')->from('#__pbevents_events')->where('dtstart>= "'.date_create("now",new DateTimeZone($config->get('offset')))->format(DATE_ATOM).'" and publish =1');
+        $view->events = $db->setQuery($query)->loadObjectList();
+
+        //get the latest announcemenets into the view
+        $view->announcements = $this->_load_announcements();
+
+        $view->display();
 
 
     }
@@ -336,5 +353,27 @@ class PbeventsController extends JControllerLegacy
 
         return $fields;
 
+    }
+
+
+    /**
+    * loads the latest announcments of the purplebeanie.com website for display in the dashboard
+    * @access private
+    * @since 0.2
+    */
+
+    private function _load_announcements()
+    {
+        $announce_url = "http://www.purplebeanie.com/Announcements/feed/rss.html";
+
+        $parser = &JFactory::getFeedParser($announce_url);
+
+        if (!$parser)
+            return array();
+
+        if (count($parser->get_items()>5))
+            return array_slice($parser->get_items(),0,5);
+        else 
+            return $parser->get_items();
     }
 }
