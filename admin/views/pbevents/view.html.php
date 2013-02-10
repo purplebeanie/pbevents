@@ -22,7 +22,14 @@ class PbeventsViewPbevents extends JViewLegacy
 		switch ($task) {
 			case 'editconfiguration':
 				$input->set('hidemainmenu',true);
+        		JToolBarHelper::cancel('cancel');
 				break;
+			case 'listevents':
+				break;
+			case 'add':
+				JToolBarHelper::cancel('cancel');
+				break;
+
 		}
 
         // display...... do I need to modify the layout?????

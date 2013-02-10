@@ -321,6 +321,17 @@ class PbeventsController extends JControllerLegacy
     }
 
     /**
+    * responds to the cancel function
+    * @access public
+    * @since 0.2
+    */
+
+    public function cancel()
+    {
+        $this->setRedirect(JURI::root(false).'administrator/index.php?option=com_pbevents');
+    }
+
+    /**
     * processes the fields from the create / edit actions and returns the fields array
     * @return array
     */
