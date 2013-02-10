@@ -25,6 +25,7 @@ class PbeventsController extends JControllerLegacy
     function display()
     {   
         JToolBarHelper::title( JText::_( 'PBEvents Manager' ), 'generic.png' );
+        $plugin = JPluginHelper::getPlugin('content','pbevents');
 
         $view = $this->getView('pbevents','html');
         $view->setLayout('default');
@@ -41,6 +42,10 @@ class PbeventsController extends JControllerLegacy
 
         //get the latest announcemenets into the view
         $view->announcements = $this->_load_announcements();
+
+        //has the plugin been activated?
+        if (count($plugin) == 0)
+            JFactory::getApplication()->enqueueMessage(JText::_('COM_PBBOOKING_PLUGIN_NOT_ACTIVATED'),'error');
 
         $view->display();
 

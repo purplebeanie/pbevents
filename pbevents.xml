@@ -34,7 +34,7 @@
 	 
 <administration>
 	<!-- Administration Menu Section -->
-	<menu>Purple Beanie Events</menu>
+	<menu>com_pbevents</menu>
 
 
 	<!-- Administration Main File Copy Section -->
