@@ -238,14 +238,14 @@ class PbeventsController extends JControllerLegacy
     {
         $input = JFactory::getApplication()->input;
         $cid = $input->get('cid',0,'array');
-        $event_id = $input->get('event_id',0,'integer');
+        $event_id = $input->get('id',0,'integer');
 
         if ($cid) {
             //process the delete attendes
             $db = &JFactory::getDbo();
             foreach ($cid as $id) {
                 $query = $db->getQuery(true);
-                $query->delete('#__pbevents_rsvps')->where('id = '.$db->getEscaped($id));
+                $query->delete('#__pbevents_rsvps')->where('id = '.$db->escape($id));
                 $db->setQuery($query);
                 $db->query();
             }
