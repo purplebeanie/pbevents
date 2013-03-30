@@ -127,7 +127,7 @@ textarea {width:90%;}
 						<th><?php echo Jtext::_('COM_PBEVENTS_CUSTOMFIELD_ORDERING');?></th>
 						<th></th>
 					</tr>
-					<?php if (!isset($this->event->fields) || $this->event->fields == '') :?>
+					<?php if (!isset($this->event->fields) || $this->event->fields == '' || $this->event->fields == '[]') :?>
 						<tr>
 							<td><input type="text" name="label[0]" value=""/></td>
 							<td><input type="text" name="var[0]" value=""/></td>

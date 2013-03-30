@@ -47,10 +47,10 @@
 			</fileset>
 		</copy>
 		
-		<copy todir="${joom_install_25}components/${component}/" overwrite="true">
+		<!--<copy todir="${joom_install_25}components/${component}/" overwrite="true">
 			<fileset refid="fs_front">
 			</fileset>
-		</copy>
+		</copy>-->
 		
 		<copy todir="${joom_install_25}administrator/language/en-GB/" overwrite="true">
 			<fileset refid="fs_admin_lang"/>
@@ -98,10 +98,10 @@
 			</fileset>
 		</copy>
 		
-		<copy todir="/Applications/mamp/htdocs/joomla3/components/${component}/" overwrite="true">
+		<!--<copy todir="/Applications/mamp/htdocs/joomla3/components/${component}/" overwrite="true">
 			<fileset refid="fs_front">
 			</fileset>
-		</copy>
+		</copy>-->
 		
 		<copy todir="/Applications/mamp/htdocs/joomla3/administrator/language/en-GB/" overwrite="true">
 			<fileset refid="fs_admin_lang"/>
