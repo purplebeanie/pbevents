@@ -10,7 +10,7 @@
 <copyright>Copyright Info</copyright>
 <license>License Info</license>
 <!--  The version string is recorded in the components table -->
-<version>0.2</version>
+<version>0.3</version>
 <!-- The description is optional and defaults to the name -->
 <description>A component used for booking events.</description>
 
@@ -19,10 +19,6 @@
   to copy FROM in the package to install therefore files copied
   in this section are copied from /site/ in the package -->
 <files folder="front">
-	<filename>controller.php</filename>
-	<filename>index.html</filename>
-	<filename>pbevents.php</filename>
-	<folder>views</folder>
 </files> 
 
 <scriptfile>script.php</scriptfile>

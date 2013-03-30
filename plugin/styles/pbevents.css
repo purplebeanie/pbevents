@@ -1,4 +1,9 @@
-.pbevents-error-field {
+input.pbevents-error-field {
+	border:1px solid red;
+	background-color: #FFFF66;
+}
+
+textarea.pbevents-error-field {
 	border:1px solid red;
 	background-color: #FFFF66;
 }

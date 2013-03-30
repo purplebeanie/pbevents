@@ -56,7 +56,9 @@ class plgContentPbevents extends JPlugin
 					$doc = &JFactory::getDocument();
 					$doc->addScript(JURI::root(false).'plugins/content/pbevents/scripts/pbevents.js');
 					$doc->addScriptDeclaration('var fields = '.$event->fields);
-					$doc->addStyleSheet(JURI::root(false).'plugins/content/pbevents/styles/pbevents.css');
+					//$doc->addStyleSheet(JURI::root(false).'plugins/content/pbevents/styles/pbevents.css'); adding in the doc header can potentially put at top and prevent error fields from being displayed we need to load into doc body.
+					echo '<link rel="stylesheet" href="'.JURI::root(false).'plugins/content/pbevents/styles/pbevents.css" type="text/css"/>';
+
 					$row->text = str_replace($matches[0],$form,$article);
 
 					//push the form id into the users session to prevent tinkering....

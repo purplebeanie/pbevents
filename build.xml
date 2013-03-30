@@ -90,7 +90,6 @@
 
 
 		<!-- clean the old stuff up first -->
-
 		<delete dir="/Applications/mamp/htdocs/joomla3/administrator/components/${component}" />
 		<delete dir="/Applications/mamp/htdocs/joomla3/components/${component}" />
 	
@@ -119,7 +118,6 @@
 		</copy>
 		
 		<copy file="pbevents.xml" todir="/Applications/mamp/htdocs/joomla3/administrator/components/${component}/" overwrite="true"/>
-
 		
 	</target>
 
