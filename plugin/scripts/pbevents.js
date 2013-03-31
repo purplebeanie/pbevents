@@ -23,7 +23,8 @@ function validate_form()
 				if ($$('input[name='+el['var']+'[]]:checked').length == 0) {
 					field_value='';
 				} else {
-					field_value=$$('input[name='+el['var']+'[]]:checked').getLast().getProperty('value')
+					//field_value=$$('input[name='+el['var']+'[]]:checked').getLast().getProperty('value')
+					field_value = 'yes'; //doesn't matter just for validation!
 				}
 				break;
 			case 'radio':
@@ -31,7 +32,7 @@ function validate_form()
 				if ($$('input[name='+el['var']+']:checked').length == 0) {
 					field_value='';
 				} else {
-					field_value=$$('input[name='+el['var']+']:checked').getLast().getProperty('value')
+					field_value=$$('input[name='+el['var']+']:checked').getLast().getProperty('value');
 				}
 				break;
 			case 'textarea':
