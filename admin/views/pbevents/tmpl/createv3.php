@@ -78,7 +78,7 @@ textarea {width:90%;}
 					</tr>
 					<tr>
 						<td><label><?php echo JText::_('COM_PBEVENTS_MAX_PEOPLE');?></label></td>
-						<td><input type="text" name="max_people" value="<?php echo (isset($this->event->max_people)) ? $this->event->max_people : 0;?>"/><i>0 = unlimited</i></td>
+						<td><input type="text" name="max_people" value="<?php echo (isset($this->event->max_people)) ? $this->event->max_people : 0;?>"/><i><?php echo JText::_('COM_PBEVENTS_MAX_PEOPLE_UNLIMIT');?></i></td>
 					</tr>
 					<tr>
 						<td><label><?php echo JText::_('COM_PBEVENTS_SUCCESS_URL');?></label></td>
