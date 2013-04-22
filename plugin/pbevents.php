@@ -107,8 +107,13 @@ class plgContentPbevents extends JPlugin
 		$form = '<form action="" method="POST">';
 		$form .= '<table id="pbevents">';
 
-		if ($event->show_counter == 1)
-			$form .= '<tr><td colspan=2" class="hitCounter">'.sprintf(JText::_('COM_PBEVENTS_HIT_COUNTER_FORMAT'),($event->max_people - $event->attendees)).'</td></tr>';
+		if ($event->show_counter == 1) {
+			if ($event->max_people == 0) {
+				$form .= '<tr><td colspan=2" class="hitCounter">'. JText::_('COM_PBEVENTS_UNLIMITED_PARTICIPATION') .'</td></tr>';
+			} else {
+				$form .= '<tr><td colspan=2" class="hitCounter">'.sprintf(JText::_('COM_PBEVENTS_HIT_COUNTER_FORMAT'),($event->max_people - $event->attendees)).'</td></tr>';				
+			}
+		}
 		if ($event->show_attendees == 1)
 			$form .= $this->_addAttendeesList($event);
 		foreach (json_decode($event->fields,true) as $field) {
