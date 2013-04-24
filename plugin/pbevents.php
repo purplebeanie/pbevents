@@ -150,7 +150,7 @@ class plgContentPbevents extends JPlugin
 			}
 			
 		}
-		$form .= '<tr><td colspan="2" align="center"><input type="submit" value="submit" id="pbevents-submit"/></td></tr>';
+		$form .= '<tr><td colspan="2" align="center"><input type="submit" value="' . JText::_('COM_PBEVENTS_SUBMIT') . '" id="pbevents-submit"/></td></tr>';
 		$form .='</table>';
 		$form .='<input type="hidden" name="event_id" value="'.$event->id.'"/>';
 		$form .= '</form>';
