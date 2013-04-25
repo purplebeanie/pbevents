@@ -200,18 +200,22 @@ class plgContentPbevents extends JPlugin
 		$lang = JFactory::getLanguage();
 		$lang->load('com_pbevents',JPATH_ADMINISTRATOR);
 
-		$html = '<tr><td colspan="2" class="attendeesList"><p><strong>'.JText::_('COM_PBEVENTS_SHOW_ATTENDEES_INTRO').'</strong></p><ul>';
-		foreach ($event->attendeesList as $attendee) {
-			$attendeeData = json_decode($attendee->data,true);
-			$dataFields = json_decode($event->fields,true);
-			
-			$html .= '<li>';
-			foreach ($dataFields as $field)
-				if (isset($field['display_in_list']) && $field['display_in_list'] == 1)
-					$html .= $attendeeData[$field['var']].JText::_('COM_PBEVENTS_DISPLAY_IN_FRONT_END_ATTENDEE_LIST_SPACE');
-			$html .= '</li>';
+		if (isset($event->attendeesList) && is_array($event->attendeesList) && count($event->attendeesList) > 0) {
+			$html = '<tr><td colspan="2" class="attendeesList"><p><strong>'.JText::_('COM_PBEVENTS_SHOW_ATTENDEES_INTRO').'</strong></p><ul>';
+			foreach ($event->attendeesList as $attendee) {
+				$attendeeData = json_decode($attendee->data,true);
+				$dataFields = json_decode($event->fields,true);
+
+				$html .= '<li>';
+				foreach ($dataFields as $field)
+					if (isset($field['display_in_list']) && $field['display_in_list'] == 1)
+						$html .= $attendeeData[$field['var']].JText::_('COM_PBEVENTS_DISPLAY_IN_FRONT_END_ATTENDEE_LIST_SPACE');
+					$html .= '</li>';
+				}
+				$html .= '</ul>';
+		} else {
+			$html = '<tr><td colspan="2" class="attendeesList"><p><strong>' . JText::_('COM_PBEVENTS_SHOW_ATTENDEES_EMPTY') . '</strong></p>';
 		}
-		$html .= '</ul>';
 
 		return $html;
 	}
