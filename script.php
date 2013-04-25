@@ -13,7 +13,7 @@ class com_pbeventsInstallerScript
 	function postflight($type,$parent) {
 		$installer = new JInstaller();
 
-		//first check to see if the plugin is already installed
+		//first check to see if the plugin is already installed needed to allow upgrade
 		$db = JFactory::getDbo();
 		$extension = $db->setQuery('select * from #__extensions where `type` = "plugin" and `element` = "pbevents" and `folder` = "content"')->loadObject();
 		if ($extension)
