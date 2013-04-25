@@ -40,10 +40,13 @@ CREATE TABLE `#__pbevents_config` (
   `email_success_subject` text,
   `email_failed_body` text,
   `email_failed_subject` text,
+	`default_success_URL` varchar(255),
+	`default_failure_URL` varchar(255),
+	`default_notification_email` varchar(255),
   `date_picker_locale` varchar(10),
   PRIMARY KEY (`id`)
 );
 
 
 
-INSERT INTO `#__pbevents_config` (`id`, `email_success_body`, `email_success_subject`, `email_failed_body`, `email_failed_subject`,`date_picker_locale`) VALUES (1, '<p>This is to inform you of a successful event registration.</p><p>The event details were:</p><p>|*event*|</p><p>The user details were:</p><p>|*user*|</p>', 'Successful Event Registration', '<p>This is to inform you of a failed event registration.</p><p>The event details were:</p><p>|*event*|</p><p>The user details were:</p><p>|*user*|</p>', 'Failed Event Registration','en-US');
+INSERT INTO `#__pbevents_config` (`id`, `email_success_body`, `email_success_subject`, `email_failed_body`, `email_failed_subject`, `default_success_URL`, `default_failure_URL`, `default_notification_email`, `date_picker_locale`) VALUES (1, '<p>This is to inform you of a successful event registration.</p><p>The event details were:</p><p>|*event*|</p><p>The user details were:</p><p>|*user*|</p>', 'Successful Event Registration', '<p>This is to inform you of a failed event registration.</p><p>The event details were:</p><p>|*event*|</p><p>The user details were:</p><p>|*user*|</p>', 'Failed Event Registration', 'http://yoursite/', 'http://yoursite/', 'eventsadmin@yoursite.com', 'en-US');

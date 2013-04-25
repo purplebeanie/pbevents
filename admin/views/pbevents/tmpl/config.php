@@ -48,6 +48,19 @@ $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts
 				</tr>
 
 				<tr>
+					<th><?php echo JText::_('COM_PBEVENTS_CONFIG_SUCCESS_URL');?></th>
+					<td><input type="text" name="default_success_URL" value="<?php echo (isset($this->config->default_success_URL)) ? $this->config->default_success_URL : null;?>" size="80"/></td>
+				</tr>
+				<tr>
+					<th><?php echo JText::_('COM_PBEVENTS_CONFIG_FAILURE_URL');?></th>
+					<td><input type="text" name="default_failure_URL" value="<?php echo (isset($this->config->default_failure_URL)) ? $this->config->default_failure_URL : null;?>" size="80"/></td>
+				</tr>
+				<tr>
+					<th><?php echo JText::_('COM_PBEVENTS_CONFIG_NOTIF_EMAIL');?></th>
+					<td><input type="text" name="default_notification_email" value="<?php echo (isset($this->config->default_notification_email)) ? $this->config->default_notification_email : null;?>" size="80"/></td>
+				</tr>
+
+				<tr>
 					<th><?php echo JText::_('COM_PBEVENTS_DATE_LOCALE');?></th>
 					<td>
 						<select name="date_picker_locale">

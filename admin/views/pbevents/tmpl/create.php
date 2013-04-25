@@ -78,11 +78,11 @@ window.addEvent('domready', function(){
 				</tr>
 				<tr>
 					<td><label><?php echo JText::_('COM_PBEVENTS_SUCCESS_URL');?></label></td>
-					<td><input type="text" name="confirmation_page" value="<?php echo (isset($this->event->confirmation_page)) ? $this->event->confirmation_page : null;?>" size="80"/></td>
+					<td><input type="text" name="confirmation_page" value="<?php echo (isset($this->event->confirmation_page)) ? $this->event->confirmation_page : $this->config->default_success_URL;?>" size="80"/></td>
 				</tr>
 				<tr>
 					<td><label><?php echo JText::_('COM_PBEVENTS_FAIL_URL');?></label></td>
-					<td><input type="text" name="failed_page" value="<?php echo (isset($this->event->failed_page)) ? $this->event->failed_page : null;?>" size="80"/></td>
+					<td><input type="text" name="failed_page" value="<?php echo (isset($this->event->failed_page)) ? $this->event->failed_page : $this->config->default_failure_URL;?>" size="80"/></td>
 				</tr>
 				<tr>
 					<td><label><?php echo JText::_('COM_PBEVENTS_SHOW_COUNTER');?></label></td>
@@ -182,7 +182,7 @@ window.addEvent('domready', function(){
 					</tr>
 					<tr>
 						<th><?php echo JText::_('COM_PBEVENTS_SEND_NOTIFICATIONS_TO');?></th>
-						<td><input type="text" name="send_notifications_to" value="<?php echo (isset($this->event->send_notifications_to)) ? $this->event->send_notifications_to : null;?>" size="80"/></td>
+						<td><input type="text" name="send_notifications_to" value="<?php echo (isset($this->event->send_notifications_to)) ? $this->event->send_notifications_to : $this->config->default_notification_email;?>" size="80"/></td>
 					</tr>
 				</table>
 			</fieldset>

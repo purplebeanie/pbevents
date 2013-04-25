@@ -46,6 +46,18 @@ $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts
 					<div class="controls"><textarea name="email_success_body" rows="10" cols="40"><?php echo (isset($this->config->email_success_body)) ? $this->config->email_success_body : null;?></textarea></div>
 				</div>
 				<div class="control-group">
+					<div class="control-label"><?php echo JText::_('COM_PBEVENTS_CONFIG_SUCCESS_URL');?></div>
+					<div class="controls"><input type="text" name="default_success_URL" value="<?php echo (isset($this->config->default_success_URL)) ? $this->config->default_success_URL : null;?>" size="80"/></div>
+				</div>
+				<div class="control-group">
+					<div class="control-label"><?php echo JText::_('COM_PBEVENTS_CONFIG_FAILURE_URL');?></div>
+					<div class="controls"><input type="text" name="default_failure_URL" value="<?php echo (isset($this->config->default_failure_URL)) ? $this->config->default_failure_URL : null;?>" size="80"/></div>
+				</div>
+				<div class="control-group">
+					<div class="control-label"><?php echo JText::_('COM_PBEVENTS_CONFIG_NOTIF_EMAIL');?></div>
+					<div class="controls"><input type="text" name="default_notification_email" value="<?php echo (isset($this->config->default_notification_email)) ? $this->config->default_notification_email : null;?>" size="80"/></div>
+				</div>
+				<div class="control-group">
 					<div class="control-label"><?php echo JText::_('COM_PBEVENTS_DATE_LOCALE');?></div>
 					<div class="controls">
 						<select name="date_picker_locale">
