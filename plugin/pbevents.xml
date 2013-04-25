@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>beanie@purplebeanie.com</authorEmail>
 	<authorUrl>www.purplebeanie.com</authorUrl>
-	<version>0.2</version>
+	<version>0.3.2</version>
 	<description>PLG_CONTENT_PBEVENTS_XML_DESCRIPTION</description>
 	
 	<files>
