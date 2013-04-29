@@ -58,6 +58,10 @@ $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts
 					<div class="controls"><input type="text" name="default_notification_email" value="<?php echo (isset($this->config->default_notification_email)) ? $this->config->default_notification_email : null;?>" size="80"/></div>
 				</div>
 				<div class="control-group">
+					<div class="control-label"><?php echo JText::_('COM_PBEVENTS_REQUIRE_CAPTCHA');?></div>
+					<div class="controls"><input type="checkbox" name="require_captcha" value="1" <?php echo (isset($this->config->require_captcha) && $this->config->require_captcha > 0) ? 'checked' : null;?> /></div>
+				</div>
+				<div class="control-group">
 					<div class="control-label"><?php echo JText::_('COM_PBEVENTS_DATE_LOCALE');?></div>
 					<div class="controls">
 						<select name="date_picker_locale">

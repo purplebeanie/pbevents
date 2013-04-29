@@ -288,6 +288,7 @@ class PbeventsController extends JControllerLegacy
                                         'default_success_URL'=>$input->get('default_success_URL', null, 'string'),
                                         'default_failure_URL'=>$input->get('default_failure_URL', null, 'string'),
                                         'default_notification_email'=>$input->get('default_notification_email', null, 'string'),
+                                        'require_captcha'=>$input->get('require_captcha', 0, 'integer'),
                                         'id'=>$input->get('id',0,'integer'),
                                         'date_picker_locale'=>$input->get('date_picker_locale','en-US','string')));
             $db->updateObject('#__pbevents_config',$config,'id'); 

@@ -43,6 +43,7 @@ CREATE TABLE `#__pbevents_config` (
 	`default_success_URL` varchar(255),
 	`default_failure_URL` varchar(255),
 	`default_notification_email` varchar(255),
+	`require_captcha` tinyint(1) DEFAULT '0',
   `date_picker_locale` varchar(10),
   PRIMARY KEY (`id`)
 );
