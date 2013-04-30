@@ -62,7 +62,7 @@ $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts
 
 				<tr>
 					<th><?php echo JText::_('COM_PBEVENTS_REQUIRE_CAPTCHA');?></th>
-					<td><input type="checkbox" name="require_captcha" value="1" <?php echo (isset($this->config->require_captcha) && $this->config->reuqire_captcha > 0) ? 'checked' : null;?> /></td>
+					<td><input type="checkbox" name="require_captcha" value="1" <?php echo (isset($this->config->require_captcha) && $this->config->require_captcha > 0) ? 'checked' : null;?> /></td>
 				</tr>
 
 				<tr>
