@@ -68,7 +68,7 @@ class plgContentPbevents extends JPlugin
 					JHtml::_('behavior.framework');
 					$doc = &JFactory::getDocument();
 					$doc->addScript(JURI::root(false).'plugins/content/pbevents/scripts/pbevents.js');
-					$doc->addScriptDeclaration('var fields = '.$event->fields);
+					$doc->addScriptDeclaration('var fields = '.$event->fields.';');
 					echo '<link rel="stylesheet" href="'.JURI::root(false).'plugins/content/pbevents/styles/pbevents.css" type="text/css"/>';
 
 					$row->text = str_replace($matches[0],$form,$article);
