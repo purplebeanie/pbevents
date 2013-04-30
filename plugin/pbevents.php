@@ -87,28 +87,32 @@ class plgContentPbevents extends JPlugin
 							$lang = JFactory::getLanguage();
 							$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 							JFactory::getApplication()->enqueueMessage(JText::_('COM_PBEVENTS_CAPTCHA_FAILED'), 'error');
-							header('Location: ' . $uri->toString());
-							exit;
+							JFactory::getApplication()->redirect($uri);
+							return;
 						}
 					}
 
 					$success = $this->_process_rsvp();
 					$row->text = str_replace($matches[0],'',$article);
-
 					if ($success) {
 						$lang = JFactory::getLanguage();
 						$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 						JFactory::getApplication()->enqueueMessage(JText::_('COM_PBEVENTS_SUCESSFUL_REGISTRATION'));
 						if ($event->email_admin_success>0)
 							$this->_email_admin($event,'success');
-						header("Location: $event->confirmation_page");
+						error_log('redirecting to '.$event->confirmation_page);
+						JFactory::getApplication()->redirect($event->confirmation_page);
+						//header("Location: $event->confirmation_page");
+						return;
 					} else {
+						error_log('redirecting to '.$event->failed_page);
 						$lang = JFactory::getLanguage();
 						$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 						JFactory::getApplication()->enqueueMessage(JText::_('COM_PBEVENTS_FAILED_REGISTRATION'));
 						if ($event->email_admin_failure>0)
 							$this->_email_admin($event,'fail');
-						header("Location: $event->failed_page");
+						JFactory::getApplication()->redirect($event->failed_page);
+						return;
 					}
 					
 				}
