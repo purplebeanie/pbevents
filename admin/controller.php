@@ -132,6 +132,7 @@ class PbeventsController extends JControllerLegacy
     {
         JToolBarHelper::title( JText::_( 'COM_PBEVENTS_EVENTS_MANAGER' ).' '.JText::_('COM_PBEVENTS_EDIT_EVENT'), 'generic.png' );
         JToolBarHelper::save('save');
+        JToolBarHelper::cancel();
 
         $view = $this->getView('pbevents','html');
         $view->setLayout('create');
