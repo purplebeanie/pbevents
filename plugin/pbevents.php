@@ -38,12 +38,9 @@ class plgContentPbevents extends JPlugin
 				$attendees = $db->setQuery($query)->loadObjectList();
 				$event->attendees = count($attendees);
 				$event->attendeesList = $attendees;
-				$query = $db->getQuery(true);
-				$query->select('*')->from('#__pbevents_config')->where('id = 1');
-				$config = $db->setQuery($query)->loadObject();
 
 				//captcha initializers
-				if ($config->require_captcha == 1) {
+				if ($event->require_captcha == 1) {
 					JPluginHelper::importPlugin('captcha');
 					$dispatcher = JDispatcher::getInstance();
 				}
@@ -51,12 +48,12 @@ class plgContentPbevents extends JPlugin
 				//do i need to inject? GET or POST
 				if ($_SERVER['REQUEST_METHOD'] == "GET") {
 					//prepare captcha div
-					if ($config->require_captcha == 1)
+					if ($event->require_captcha == 1)
 						$dispatcher->trigger('onInit', 'dynamic_recaptcha_1');
 
 					//build the form up
 					if ($event->publish == 1 && ($event->max_people == 0 || count($attendees)<$event->max_people)) {
-						$form = $this->_build_form($event, $config);
+						$form = $this->_build_form($event);
 					} else {
 						if ($event->publish == 0)
 							$form = $this->_displayEventClosed();
@@ -79,7 +76,7 @@ class plgContentPbevents extends JPlugin
 
 				} else {
 					//check captcha
-					if ($config->require_captcha == 1) {
+					if ($event->require_captcha == 1) {
 						$post = JRequest::get('post');
 						$captcheck = $dispatcher->trigger('onCheckAnswer', $post['recaptcha_response_field']);
 						if (!$captcheck[0]) {
@@ -102,7 +99,6 @@ class plgContentPbevents extends JPlugin
 							$this->_email_admin($event,'success');
 						error_log('redirecting to '.$event->confirmation_page);
 						JFactory::getApplication()->redirect($event->confirmation_page);
-						//header("Location: $event->confirmation_page");
 						return;
 					} else {
 						error_log('redirecting to '.$event->failed_page);
@@ -129,7 +125,7 @@ class plgContentPbevents extends JPlugin
 	* @return string the form
 	*/
 
-	private function _build_form($event, $config)
+	private function _build_form($event)
 	{
 		//load the language strings
 		$lang = JFactory::getLanguage();
@@ -181,7 +177,7 @@ class plgContentPbevents extends JPlugin
 			}
 			
 		}
-		if ($config->require_captcha == 1)
+		if ($event->require_captcha == 1)
 			$form .= '<tr><td colspan="2" align="center"><div id="dynamic_recaptcha_1"></div></td></tr>';
 		$form .= '<tr><td colspan="2" align="center"><input type="submit" value="' . JText::_('COM_PBEVENTS_SUBMIT') . '" id="pbevents-submit"/></td></tr>';
 		$form .='</table>';

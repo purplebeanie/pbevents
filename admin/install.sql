@@ -23,6 +23,7 @@ CREATE TABLE `#__pbevents_events` (
   `publish` tinyint(1) DEFAULT 1,
   `show_counter` tinyint(1) DEFAULT 1,
   `show_attendees` tinyint(1) DEFAULT 0,
+  `require_captcha` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 

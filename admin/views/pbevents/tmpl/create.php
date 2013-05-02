@@ -92,6 +92,10 @@ window.addEvent('domready', function(){
 					<td><label><?php echo JText::_('COM_PBEVENTS_SHOW_ATTENDEES');?></label></td>
 					<td><input type="hidden" name="show_attendees" value="0"><input type="checkbox" name="show_attendees" value="1" <?php echo (isset($this->event->show_attendees) && $this->event->show_attendees == 1) ? 'checked' : null;?>></td>
 				</tr>
+				<tr>
+					<td><label><?php echo JText::_('COM_PBEVENTS_REQUIRE_CAPTCHA');?></label></td>
+					<td><input type="hidden" name="require_captcha" value="0"><input type="checkbox" name="require_captcha" value="1" <?php echo (isset($this->event->require_captcha) && $this->event->require_captcha > 0) ? 'checked' : ((isset($this->config->require_captcha) && $this->config->require_captcha > 0) ? 'checked' : null);?> /></td>
+				</tr>
 			</table>
 			
 		</fieldset>
