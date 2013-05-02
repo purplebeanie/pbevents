@@ -339,7 +339,7 @@ class PbeventsController extends JControllerLegacy
 
     public function cancel()
     {
-        $this->setRedirect(JURI::root(false).'administrator/index.php?option=com_pbevents');
+        $this->setRedirect(JURI::root(false).'administrator/index.php?option=com_pbevents&task=listevents');
     }
 
     /**
