@@ -6,6 +6,7 @@
 	<property name="joom_install_15" value="/Applications/mamp/htdocs/joomla15/"/>
 	<property name="joom_install_25" value="/Applications/mamp/htdocs/joomla25pbb24/"/>
 
+
 	<fileset id="fs_front" dir="front/."/>
 	<fileset id="fs_admin" dir="admin/."/>
 	<fileset id="fs_admin_lang" dir="languages/admin/."/>
@@ -90,10 +91,10 @@
 
 
 		<!-- clean the old stuff up first -->
-		<delete dir="/Applications/mamp/htdocs/joomla3/administrator/components/${component}" />
-		<delete dir="/Applications/mamp/htdocs/joomla3/components/${component}" />
+		<delete dir="/Applications/mamp/htdocs/j311devfree/administrator/components/${component}" />
+		<delete dir="/Applications/mamp/htdocs/j311devfree/components/${component}" />
 	
-		<copy todir="/Applications/mamp/htdocs/joomla3/administrator/components/${component}/" overwrite="true">
+		<copy todir="/Applications/mamp/htdocs/j311devfree/administrator/components/${component}/" overwrite="true">
 			<fileset dir="admin">
 			</fileset>
 		</copy>
@@ -103,21 +104,21 @@
 			</fileset>
 		</copy>-->
 		
-		<copy todir="/Applications/mamp/htdocs/joomla3/administrator/language/en-GB/" overwrite="true">
+		<copy todir="/Applications/mamp/htdocs/j311devfree/administrator/language/en-GB/" overwrite="true">
 			<fileset refid="fs_admin_lang"/>
 		</copy>
-		<copy todir="/Applications/mamp/htdocs/joomla3/language/en-GB/" overwrite="true">
+		<copy todir="/Applications/mamp/htdocs/j311devfree/language/en-GB/" overwrite="true">
 			<fileset refid="fs_front_lang"/>
 		</copy>
 
-		<copy todir="/Applications/mamp/htdocs/joomla3/plugins/content/pbevents/" overwrite="true">
+		<copy todir="/Applications/mamp/htdocs/j311devfree/plugins/content/pbevents/" overwrite="true">
 			<fileset dir="plugin/."/>
 		</copy>
-		<copy todir="/Applications/mamp/htdocs/joomla3/administrator/language/en-GB/" overwrite="true">
+		<copy todir="/Applications/mamp/htdocs/j311devfree/administrator/language/en-GB/" overwrite="true">
 			<fileset dir="plugin/language/."/>
 		</copy>
 		
-		<copy file="pbevents.xml" todir="/Applications/mamp/htdocs/joomla3/administrator/components/${component}/" overwrite="true"/>
+		<copy file="pbevents.xml" todir="/Applications/mamp/htdocs/j311devfree/administrator/components/${component}/" overwrite="true"/>
 		
 	</target>
 

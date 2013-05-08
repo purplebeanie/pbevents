@@ -72,6 +72,7 @@ $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts
 						</select>
 					</div>
 				</div>
+
 			</fieldset>
 		</div>
 	</div>

@@ -23,7 +23,7 @@ class com_pbeventsInstallerScript
 
 		//get dir.... some installs don't support __DIR__ constant...
 		$version = new JVersion();
-		if ($version->RELEASE == '3.0')
+		if ($version->RELEASE != '2.5')
 			define('DS',DIRECTORY_SEPARATOR);
 
 		$dir_arr = explode(DS,__FILE__);

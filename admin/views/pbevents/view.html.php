@@ -33,7 +33,7 @@ class PbeventsViewPbevents extends JViewLegacy
 		}
 
         // display...... do I need to modify the layout?????
-        if (JOOMLA_VERSION == '3.0')
+        if (JOOMLA_VERSION != '3.0')
         	$this->setLayout($this->getLayout().'v3');
 
 		parent::display($tpl);
