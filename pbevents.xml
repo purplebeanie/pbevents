@@ -50,6 +50,8 @@
 		<folder>scripts</folder>
 		<folder>images</folder>
 		<folder>sql</folder>
+		<folder>assets</folder>
+		<folder>css</folder>
 	</files>
 	
 	<languages>

@@ -15,6 +15,9 @@ JHtml::_('behavior.multiselect');
 defined('_JEXEC') or die('Restricted access'); 
 ?>
 
+<?php require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'checkbootstrap.php');?>
+
+
 
 <form action="<?php echo JRoute::_('index.php?option=com_pbevents&task=listevents');?>" method="post" name="adminForm" id="adminForm">  
 
@@ -107,3 +110,5 @@ defined('_JEXEC') or die('Restricted access');
 	<input type="hidden" name="boxchecked" value="0" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>
+
+<?php require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'closebootstrap.php');?>

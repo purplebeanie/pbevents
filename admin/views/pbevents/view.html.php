@@ -28,12 +28,13 @@ class PbeventsViewPbevents extends JViewLegacy
 				break;
 			case 'add':
 				JToolBarHelper::cancel('cancel');
+				JFactory::getApplication()->input->set('hidemainmenu', true);				
 				break;
 
 		}
 
         // display...... do I need to modify the layout?????
-        if (JOOMLA_VERSION != '3.0')
+        if (JOOMLA_VERSION != '2.5' || 1==1)
         	$this->setLayout($this->getLayout().'v3');
 
 		parent::display($tpl);

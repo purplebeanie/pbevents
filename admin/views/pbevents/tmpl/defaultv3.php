@@ -11,6 +11,8 @@
 defined('_JEXEC') or die('Restricted access'); 
 
 $config = JFactory::getConfig();
+
+require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'checkbootstrap.php');
   
 echo '<h1>'.JTEXT::_('COM_PBEVENTS_HEADING').'</h1>';
 
@@ -98,3 +100,5 @@ echo '<h1>'.JTEXT::_('COM_PBEVENTS_HEADING').'</h1>';
 		</div>
 	</div>
 </div>
+
+<?php require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'closebootstrap.php');?>
