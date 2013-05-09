@@ -1,26 +1,30 @@
 window.addEvent('domready',function(){
-	$('pbevents-submit').addEvent('click',function(e){
-		error = validate_form();
+	$$('.pbevents-submit').addEvent('click',function(e){
+		error = validate_form(this.getParents('form').getLast());
 		if (error) {
 			e.stop();
 		}
 	});
 })
 
-function validate_form()
+
+//modified to try and scale to multiple forms on one page.
+function validate_form(form)
 {
+	var event_id = form.getChildren('input[name=event_id]').getLast().getProperty('value');
 	var error = false;
-	fields.each(function(el,idx){
+
+	fields[event_id.toString()].each(function(el,idx){
 		var field_value = undefined;
 		var field = undefined;
 		switch (el.type) {
 			case 'select':
-				field = $$('select[name=' + el['var'] + ']');
+				field = form.getElements('select[name=' + el['var'] + ']');
 				field_value = field.getLast().getProperty('value');
 				break;
 			case 'checkbox':
-				field = $$('input[name='+el['var']+'[]]');
-				if ($$('input[name='+el['var']+'[]]:checked').length == 0) {
+				field = form.getElements('input[name='+el['var']+'[]]');
+				if (form.getElements('input[name='+el['var']+'[]]:checked').length == 0) {
 					field_value='';
 				} else {
 					//field_value=$$('input[name='+el['var']+'[]]:checked').getLast().getProperty('value')
@@ -28,21 +32,21 @@ function validate_form()
 				}
 				break;
 			case 'radio':
-				field = $$('input[name='+el['var']+']');
-				if ($$('input[name='+el['var']+']:checked').length == 0) {
+				field = form.getElements('input[name='+el['var']+']');
+				if (form.getElements('input[name='+el['var']+']:checked').length == 0) {
 					field_value='';
 				} else {
 					field_value=$$('input[name='+el['var']+']:checked').getLast().getProperty('value');
 				}
 				break;
 			case 'textarea':
-				field = $$('textarea[name='+el['var']+']');
-				field_value=$$('textarea[name='+el['var']+']').getLast().getProperty('value')
+				field = form.getElements('textarea[name='+el['var']+']');
+				field_value=form.getElements('textarea[name='+el['var']+']').getLast().getProperty('value')
 				break;
 
 			default:
-				field = $$('input[name='+el['var']+']');
-				field_value = $$('input[name='+el['var']+']').getLast().getProperty('value');
+				field = form.getElements('input[name='+el['var']+']');
+				field_value = form.getElements('input[name='+el['var']+']').getLast().getProperty('value');
 				break;
 		}
 		if (el.required == 1 && field_value == '') {

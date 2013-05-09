@@ -7,6 +7,10 @@
 // No direct access.
 defined('_JEXEC') or die;
 
+
+$version = new JVersion();
+if ($version->RELEASE != '2.5')
+	define('DS',DIRECTORY_SEPARATOR);
 /**
  * Class for PBEvents PLugin
  *
@@ -65,7 +69,8 @@ class plgContentPbevents extends JPlugin
 					JHtml::_('behavior.framework');
 					$doc = &JFactory::getDocument();
 					$doc->addScript(JURI::root(false).'plugins/content/pbevents/scripts/pbevents.js');
-					$doc->addScriptDeclaration('var fields = '.$event->fields.';');
+					//$doc->addScriptDeclaration('var fields = '.$event->fields.';');
+					include(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'inject_custom_fields.php');
 					echo '<link rel="stylesheet" href="'.JURI::root(false).'plugins/content/pbevents/styles/pbevents.css" type="text/css"/>';
 
 					$row->text = str_replace($matches[0],$form,$article);
@@ -179,7 +184,7 @@ class plgContentPbevents extends JPlugin
 		}
 		if ($event->require_captcha == 1)
 			$form .= '<tr><td colspan="2" align="center"><div id="dynamic_recaptcha_1"></div></td></tr>';
-		$form .= '<tr><td colspan="2" align="center"><input type="submit" value="' . JText::_('COM_PBEVENTS_SUBMIT') . '" id="pbevents-submit"/></td></tr>';
+		$form .= '<tr><td colspan="2" align="center"><input type="submit" value="' . JText::_('COM_PBEVENTS_SUBMIT') . '" class="pbevents-submit"/></td></tr>';
 		$form .='</table>';
 		$form .='<input type="hidden" name="event_id" value="'.$event->id.'"/>';
 		$form .= '</form>';
