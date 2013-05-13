@@ -68,9 +68,9 @@ class plgContentPbevents extends JPlugin
 					//inject the form, javascript and, css
 					JHtml::_('behavior.framework');
 					$doc = &JFactory::getDocument();
-					$doc->addScript(JURI::root(false).'plugins/content/pbevents/scripts/pbevents.js');
-					//$doc->addScriptDeclaration('var fields = '.$event->fields.';');
 					include(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'inject_custom_fields.php');
+					echo '<script src="'.JURI::root(false).'administrator/components/com_pbevents/assets/jquery-1.9.1.min.js"></script>';
+					require_once(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'pbevents.php');
 					echo '<link rel="stylesheet" href="'.JURI::root(false).'plugins/content/pbevents/styles/pbevents.css" type="text/css"/>';
 
 					$row->text = str_replace($matches[0],$form,$article);
