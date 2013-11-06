@@ -284,9 +284,9 @@ class PbeventsController extends JControllerLegacy
             $email_failed_body = preg_replace(array('/\n+/','/\r+/'),'',$email_failed_body);
 
             $config = new JObject(array('email_failed_subject'=>$input->get('email_failed_subject',null,'string'),
-                                        'email_failed_body'=>$db->getEscaped($email_failed_body),
+                                        'email_failed_body'=>$db->escape($email_failed_body),
                                         'email_success_subject'=>$input->get('email_success_subject',null,'string'),
-                                        'email_success_body'=>$db->getEscaped($email_success_body),
+                                        'email_success_body'=>$db->escape($email_success_body),
                                         'default_success_URL'=>$input->get('default_success_URL', null, 'string'),
                                         'default_failure_URL'=>$input->get('default_failure_URL', null, 'string'),
                                         'default_notification_email'=>$input->get('default_notification_email', null, 'string'),
