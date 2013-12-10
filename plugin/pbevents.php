@@ -106,7 +106,7 @@ class plgContentPbevents extends JPlugin
 							$this->_email_admin($event,'success');
 						$this->_emailUser($event);
 						error_log('redirecting to '.$event->confirmation_page);
-						JFactory::getApplication()->redirect($event->confirmation_page);
+						//JFactory::getApplication()->redirect($event->confirmation_page);
 						return;
 					} else {
 						error_log('redirecting to '.$event->failed_page);
@@ -364,6 +364,15 @@ class plgContentPbevents extends JPlugin
 
 		//check to see what email address is?
 		if ($email_address != '' && JMailHelper::isEmailAddress($email_address)) {
+			
+			//process the body of the email.
+			$body = $event->client_confirmation_message;
+			foreach ($fields as $field) {
+				$body = str_replace('|*'.$field['var'].'*|',(isset($_POST[$field['var']])) ? $_POST[$field['var']] : '',$body);
+			}
+
+
+
 			//is valid email and have email don't want so we can send!
 			$mailer = JFactory::getMailer();
 			$sender = array($config->get('mailfrom'),$config->get('fromname'));
@@ -371,7 +380,7 @@ class plgContentPbevents extends JPlugin
 			$mailer->addRecipient($email_address);
 			$mailer->isHTML(true);
 			$mailer->setSubject($event->client_confirmation_subject);
-			$mailer->setBody($event->client_confirmation_message);
+			$mailer->setBody($body);
 			$mailer->Send();
 		}
 
