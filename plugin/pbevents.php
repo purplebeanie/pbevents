@@ -7,6 +7,8 @@
 // No direct access.
 defined('_JEXEC') or die;
 
+jimport('joomla.mail.helper');
+
 
 $version = new JVersion();
 if ($version->RELEASE != '2.5')
@@ -34,7 +36,7 @@ class plgContentPbevents extends JPlugin
 
 		if (preg_match('/\{pbevents=(\d+)\}/',$article,$matches)) {
 			//get the event details
-			$db = &JFactory::getDbo();
+			$db = JFactory::getDbo();
 			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->escape($matches[1]))->loadObject();
 			if ($event) {
 				$query = $db->getQuery(true);
@@ -67,7 +69,7 @@ class plgContentPbevents extends JPlugin
 
 					//inject the form, javascript and, css
 					JHtml::_('behavior.framework');
-					$doc = &JFactory::getDocument();
+					$doc = JFactory::getDocument();
 					include(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'inject_custom_fields.php');
 					echo '<script src="'.JURI::root(false).'administrator/components/com_pbevents/assets/jquery-1.9.1.min.js"></script>';
 					require_once(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'pbevents.php');
@@ -76,7 +78,7 @@ class plgContentPbevents extends JPlugin
 					$row->text = str_replace($matches[0],$form,$article);
 
 					//push the form id into the users session to prevent tinkering....
-					$session = &JFactory::getSession();
+					$session = JFactory::getSession();
 					$session->set('pbevents_event_id',(int)$matches[1]);
 
 				} else {
@@ -85,7 +87,7 @@ class plgContentPbevents extends JPlugin
 						$post = JRequest::get('post');
 						$captcheck = $dispatcher->trigger('onCheckAnswer', $post['recaptcha_response_field']);
 						if (!$captcheck[0]) {
-							$uri = &JFactory::getURI();
+							$uri = JFactory::getURI();
 							$lang = JFactory::getLanguage();
 							$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 							JFactory::getApplication()->enqueueMessage(JText::_('COM_PBEVENTS_CAPTCHA_FAILED'), 'error');
@@ -102,6 +104,7 @@ class plgContentPbevents extends JPlugin
 						JFactory::getApplication()->enqueueMessage(JText::_('COM_PBEVENTS_SUCESSFUL_REGISTRATION'));
 						if ($event->email_admin_success>0)
 							$this->_email_admin($event,'success');
+						$this->_emailUser($event);
 						error_log('redirecting to '.$event->confirmation_page);
 						JFactory::getApplication()->redirect($event->confirmation_page);
 						return;
@@ -263,13 +266,13 @@ class plgContentPbevents extends JPlugin
 	private function _process_rsvp()
 	{
 
-		//$session = &JFactory::getSession(); //session not needed - caused failed registrations on windows.
+		//$session = JFactory::getSession(); //session not needed - caused failed registrations on windows.
 		//$event_id = $session->get('pbevents_event_id',0); //removed - as it generated errors on windows. now pulls from a hidden field.
-		$input = &JFactory::getApplication()->input;
+		$input = JFactory::getApplication()->input;
 		$event_id = $input->get('event_id',null,'integer');
 
 		if ($event_id) {
-			$db = &JFactory::getDbo();
+			$db = JFactory::getDbo();
 			$event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$db->escape($event_id))->loadObject();
 			$data = array(); //contains the rsvp
 			foreach (json_decode($event->fields,true) as $field) {
@@ -302,7 +305,7 @@ class plgContentPbevents extends JPlugin
 		$lang->load('com_pbevents', JPATH_ADMINISTRATOR);
 
 		//get the config both from pbevents and joomla 
-		$db = &JFactory::getDbo();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('*')->from('#__pbevents_config')->where('id = 1');
 		$config = $db->setQuery($query)->loadObject();
@@ -338,6 +341,40 @@ class plgContentPbevents extends JPlugin
 
 		$mailer->setBody($email_body);
 		$mailer->Send();
+
+	}
+
+	/**
+	* emails the user if an email field has been supplied
+	* @param mixed the event object
+	*/
+
+	private function _emailUser($event)
+	{
+		$input = JFactory::getApplication()->input;
+		$config = JFactory::getConfig();
+
+		$fields = json_decode($event->fields,true);
+		$email_address = '';
+		foreach ($fields as $field) {
+			if ($field['is_email'])
+				$email_address = $input->get('email',null,'string');
+		}
+
+
+		//check to see what email address is?
+		if ($email_address != '' && JMailHelper::isEmailAddress($email_address)) {
+			//is valid email and have email don't want so we can send!
+			$mailer = JFactory::getMailer();
+			$sender = array($config->get('mailfrom'),$config->get('fromname'));
+			$mailer->setSender($sender);
+			$mailer->addRecipient($email_address);
+			$mailer->isHTML(true);
+			$mailer->setSubject($event->client_confirmation_subject);
+			$mailer->setBody($event->client_confirmation_message);
+			$mailer->Send();
+		}
+
 
 	}
 

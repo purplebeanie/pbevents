@@ -22,7 +22,7 @@ class PbeventsController extends JControllerLegacy
      *
      * @access    public
      */
-    function display()
+    function display($cachable = false, $urlparams = array())
     {   
         JToolBarHelper::title( JText::_( 'PBEvents Manager' ), 'generic.png' );
         $plugin = JPluginHelper::getPlugin('content','pbevents');
@@ -31,7 +31,7 @@ class PbeventsController extends JControllerLegacy
         $view->setLayout('default');
 
         //load in the dashboard variables
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $config = JFactory::getConfig();
         $query = $db->getQuery(true);
         $query->select('#__pbevents_rsvps.*,#__pbevents_events.event_name,#__pbevents_events.fields')->from('#__pbevents_rsvps')->join('left','#__pbevents_events on #__pbevents_rsvps.event_id = #__pbevents_events.id')->order('#__pbevents_rsvps.id DESC')->limit(10);
@@ -69,7 +69,7 @@ class PbeventsController extends JControllerLegacy
         $limitstart = $input->get('limitstart',0,'integer');
         $filter_published = $input->get('filter_published',null,'string');
 
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('*')->from('#__pbevents_events');
         $query->order('dtstart DESC');
@@ -80,7 +80,7 @@ class PbeventsController extends JControllerLegacy
         $events = $db->setQuery($query)->loadObjectList();
 
         //get attendees for events and set date to the right timezone!
-        $config =&JFactory::getConfig();
+        $config =JFactory::getConfig();
         foreach ($events as $event) {
             $query = $db->getQuery(true);
             $query->select('*')->from('#__pbevents_rsvps')->where('event_id = '.(int)$event->id);
@@ -114,7 +114,7 @@ class PbeventsController extends JControllerLegacy
         JToolBarHelper::title( JText::_( 'COM_PBEVENTS_EVENTS_MANAGER' ).' '.JText::_('COM_PBEVENTS_CREATE_EVENT'), 'generic.png' );
         JToolBarHelper::save('save');
 
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
 
         $view = $this->getView('pbevents','html');
         $view->setLayout('create');
@@ -140,7 +140,7 @@ class PbeventsController extends JControllerLegacy
         $input = JFactory::getApplication()->input;
         $event_id = $input->get('id',0,'integer');
         if ($event_id) {
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->select('*')->from('#__pbevents_events')->where('id = '.(int)$event_id);
             $view->event = $db->setQuery($query)->loadObject();
@@ -170,8 +170,10 @@ class PbeventsController extends JControllerLegacy
                                     'send_notifications_to'=>$input->get('send_notifications_to',null,'string'),
                                     'show_counter'=>$input->get('show_counter',0,'integer'),
                                     'show_attendees'=>$input->get('show_attendees',0,'integer'),
-                                    'require_captcha'=>$input->get('require_captcha',0,'integer')
+                                    'require_captcha'=>$input->get('require_captcha',0,'integer'),
+                                    'client_confirmation_subject'=>$input->get('client_confirmation_subject',null,'string')
                                     ));
+        $event->client_confirmation_message = $_POST['client_confirmation_message'];
         $db = JFactory::getDbo();
 
         if ($input->get('id',null,'integer')>0) {
@@ -244,7 +246,7 @@ class PbeventsController extends JControllerLegacy
 
         if ($cid) {
             //process the delete attendes
-            $db = &JFactory::getDbo();
+            $db = JFactory::getDbo();
             foreach ($cid as $id) {
                 $query = $db->getQuery(true);
                 $query->delete('#__pbevents_rsvps')->where('id = '.$db->escape($id));
@@ -264,7 +266,7 @@ class PbeventsController extends JControllerLegacy
         JToolBarHelper::title(JText::_('COM_PBEVENTS_EVENTS_MANAGER').' '.JText::_('COM_PBEVENTS_CONFIGURATION'),'generic.png');
         JToolBarHelper::save('editconfiguration');
 
-        $db = &JFactory::getDbo();
+        $db = JFactory::getDbo();
 
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $view= $this->getView('pbevents','html');
@@ -306,8 +308,8 @@ class PbeventsController extends JControllerLegacy
     public function publish()
     {
         echo print_r($_REQUEST);
-        $db = &JFactory::getDbo();
-        $input = &JFactory::getApplication()->input;
+        $db = JFactory::getDbo();
+        $input = JFactory::getApplication()->input;
 
         $cids = $input->get('cid',null,'array');
         foreach ($cids as $cid)
@@ -321,8 +323,8 @@ class PbeventsController extends JControllerLegacy
 
     public function unpublish()
     {
-        $db = &JFactory::getDbo();
-        $input = &JFactory::getApplication()->input;
+        $db = JFactory::getDbo();
+        $input = JFactory::getApplication()->input;
 
         $cids = $input->get('cid',null,'array');
         foreach ($cids as $cid)
@@ -388,7 +390,7 @@ class PbeventsController extends JControllerLegacy
     {
         $announce_url = "http://www.purplebeanie.com/Announcements/feed/rss.html";
 
-        $parser = &JFactory::getFeedParser($announce_url);
+        $parser = JFactory::getFeedParser($announce_url);
 
         if (!$parser)
             return array();
