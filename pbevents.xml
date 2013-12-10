@@ -3,14 +3,14 @@
 <name>com_pbevents</name>
 <!-- The following elements are optional and free of formatting constraints -->
  
-<creationDate>2013-02-01</creationDate>
+<creationDate>2013-12-02</creationDate>
 <author>Eric Fernance</author>
 <authorEmail>beanie@purplebeanie.com</authorEmail>
 <authorUrl>http://www.purplebeanie.com</authorUrl>
 <copyright>Copyright Info</copyright>
 <license>License Info</license>
 <!--  The version string is recorded in the components table -->
-<version>0.3.3</version>
+<version>0.3.4</version>
 <!-- The description is optional and defaults to the name -->
 <description>A component used for booking events.</description>
 

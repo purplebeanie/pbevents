@@ -3,7 +3,7 @@
 	
 	<xmlproperty file="pbevents.xml" keepRoot="false"/>
 	<property name="component" value="com_pbevents"/>
-	<property name="joom_install_25" value="/Applications/mamp/htdocs/j314devfree/"/>
+	<property name="joom_install_25" value="/Applications/mamp/htdocs/j320devfree/"/>
 
 
 	<fileset id="fs_front" dir="front/."/>

@@ -112,162 +112,180 @@ jQuery(document).ready(function($){
 
 <div class="row-fluid">
 	<div class="span12">
-
 		<form action="<?php echo JRoute::_('index.php?option=com_pbevents&layout=add');?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
-			<h2><?php echo JText::_('COM_PBEVENTS_CREATE_EVENT');?></h3>
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_EVENT_NAME');?></label>
-						<div class="controls"><input type="text" class="input-xxlarge" name="event_name" value="<?php echo (isset($this->event->event_name)) ? $this->event->event_name : null;?>" size="80"/></div>
-					</div>
 
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_EVENT_DESCRIPTION');?></label>
-						<div class="controls"><textarea name="description" class="input-xxlarge" rows="10" ><?php echo (isset($this->event->description)) ? $this->event->description : null;?></textarea></div>
-					</div>
+		<div class="tabbable">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tabEventDetails" data-toggle="tab"><?php echo JText::_('COM_PBEVENTS_EVENT_DETAILS');?></a></li>
+				<li><a href="#tabEventFields" data-toggle="tab"><?php echo JText::_('COM_PBEVENTS_EVENT_FIELDS');?></a></li>
+			</ul>
 
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_START');?></label>
-						<div class="controls"><input type="text" class="input-medium" name="dtstart" id="dtstart" value="<?php echo (isset($this->event->dtstart)) ? date_create($this->event->dtstart)->format('Y-m-d H:i:s') : null;?>"/></div>
-					</div>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tabEventDetails">
 
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_END');?></label>
-						<div class="controls"><input type="text" class="input-medium" name="dtend" id="dtend" value="<?php echo (isset($this->event->dtend)) ? date_create($this->event->dtend)->format('Y-m-d H:i:s') : null;?>"/></div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_MAX_PEOPLE');?></label>
-						<div class="controls"><input type="text" class="input-small" name="max_people" value="<?php echo (isset($this->event->max_people)) ? $this->event->max_people : 0;?>"/><i><?php echo JText::_('COM_PBEVENTS_MAX_PEOPLE_UNLIMIT');?></i></div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SUCCESS_URL');?></label>
-						<div class="controls"><input type="text" class="input-xxlarge" name="confirmation_page" value="<?php echo (isset($this->event->confirmation_page)) ? $this->event->confirmation_page : $this->config->default_success_URL;?>" size="80"/></div>
-					</div>
-
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_FAIL_URL');?></label>
-						<div class="controls"><input type="text" class="input-xxlarge" name="failed_page" value="<?php echo (isset($this->event->failed_page)) ? $this->event->failed_page : $this->config->default_failure_URL;?>" size="80"/></div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SHOW_COUNTER');?></label>
-						<div class="controls"><input type="hidden" name="show_counter" value="0"><input type="checkbox" name="show_counter" value="1" <?php echo (isset($this->event->show_counter) && $this->event->show_counter == 1) ? 'checked' : null;?>></div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SHOW_ATTENDEES');?></label>
-						<div class="controls"><input type="hidden" name="show_attendees" value="0"><input type="checkbox" name="show_attendees" value="1" <?php echo (isset($this->event->show_attendees) && $this->event->show_attendees == 1) ? 'checked' : null;?>></div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_REQUIRE_CAPTCHA');?></label>
-						<div class="controls"><input type="hidden" name="require_captcha" value="0"><input type="checkbox" name="require_captcha" value="1" <?php echo (isset($this->event->require_captcha) && $this->event->require_captcha > 0) ? 'checked' : ((isset($this->config->require_captcha) && $this->config->require_captcha > 0) ? 'checked' : null);?> /></div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_NOTIFY_FAILURE');?></label>
-						<div class="controls"><input type="checkbox" name="email_admin_failure" value="1" <?php echo (isset($this->event->email_admin_failure) && $this->event->email_admin_failure > 0 ) ? 'checked' : null;?>/></div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_NOTIFY_SUCCESS');?></label>
-						<div class="controls"><input type="checkbox" name="email_admin_success" value="1" <?php echo (isset($this->event->email_admin_success) && $this->event->email_admin_success > 0 ) ? 'checked' : null;?>/></div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SEND_NOTIFICATIONS_TO');?></label>
-						<div class="controls"><input type="text" class="input-xxlarge" name="send_notifications_to" value="<?php echo (isset($this->event->send_notifications_to)) ? $this->event->send_notifications_to : $this->config->default_notification_email;?>" size="80"/></div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row-fluid">
-				<div class="span9">
-					<h3><?php echo JText::_('COM_PBEVENTS_FIELDS');?></h3></div><div class="span3" style="padding-top:10px;line-height:40px;">
-					<a href="#" class="btn btn-success btn-add-field"><?php echo JText::_('COM_PBEVENTS_ADD_CUSTOMFIELD');?></a>&nbsp;
-					<a href="#" class="btn btn-warning btn-del-field"><?php echo JText::_('COM_PBEVENTS_DELETE_CUSTOMFIELD');?></a>&nbsp;
-				</div>
-			</div>
-
-			<div class="row-fluid fields-header">
-				<div class="span1"></div>
-				<div class="span3"><?php echo JText::_('COM_PBEVENTS_FIELD_LABEL');?></div>
-				<div class="span2"><?php echo JText::_('COM_PBEVENTS_FIELD_VAR');?></div>
-				<div class="span1"><?php echo JText::_('COM_PBEVENTS_FIELD_REQUIRED');?></div>
-				<div class="span2"><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE');?>/<br/><?php echo JText::_('COM_PBEVENTS_FIELD_VALUES');?></div>
-				<div class="span1"><?php echo JText::_('COM_PBEVENTS_FIELD_VALIDATE_AS_EMAIL');?></div>
-				<div class="span1"><?php echo JText::_('COM_PBEVENTS_DISPLAY_IN_FRONT_END_ATTENDEE_LIST');?></div>
-				<div class="span1"><?php echo JText::_('COM_PBEVENTS_CUSTOMFIELD_ORDERING');?></div>
-			</div>
-
-			<div class="fields-container">
-
-				<?php if (!isset($this->event->fields) || $this->event->fields == '' || $this->event->fields == '[]') :?>
-
-					<div id="fields-row-0" class="row-fluid fields-data">
-						<div class="span1 fields-checkbox"><input type="checkbox" name="cid[]" value="0"/></div>
-						<div class="span3"><input type="text" name="label[0]" value="" class="input-large"/></div>
-						<div class="span2"><input type="text" name="var[0]" value="" class="input-medium"/></div>
-						<div class="span1 fields-checkbox"><input type="checkbox" name="required[]" value="1"/></div>
-						<div class="span2">
-							<select name="type[0]" class="input-medium">
-								<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
-								<?php foreach (array('select','checkbox','text','textarea','radio') as $type) :?>
-									<option value="<?php echo $type;?>"><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
-								<?php endforeach;?> 
-							</select><br/><br/>
-							<input type="text" name="values[0]" value="" class="input-medium"/>
-						</div>
-						<div class="span1 fields-checkbox"><input type="checkbox" name="is_email[0]" value="1"/></div>
-						<div class="span1 fields-checkbox"><input type="checkbox" name="display_in_list[0]" value="1"/></div>
-						<div class="span1"><input type="text" class="input-mini" name="ordering[0]" value="<?php echo isset($field['ordering']) ? $field['ordering'] : 1;?>"/></div>
-					</div>
-
-					<hr/>
-
-				<?php else:?>
-
-					<?php $i=0;?>
-					<?php foreach (json_decode($this->event->fields,true) as $field):?>
-
-						<div id="fields-row-<?php echo $i;?>" class="row-fluid fields-data">
-							<div class="span1 fields-checkbox"><input type="checkbox" name="cid[]" value="<?php echo $i;?>"/></div>
-							<div class="span3"><input type="text" name="label[<?php echo $i;?>]" value="<?php echo $field['label'];?>" class="input-large"/></div>
-							<div class="span2"><input type="text" name="var[<?php echo $i;?>]" value="<?php echo $field['var'];?>" class="input-medium"/></div>
-							<div class="span1 fields-checkbox"><input type="checkbox" name="required[<?php echo $i;?>]" value="1" <?php echo (isset($field['required']) && $field['required'] == 1) ? 'checked' : null;?> /></div>
-							<div class="span2">
-								<select name="type[<?php echo $i;?>]" class="input-medium">
-									<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
-									<?php foreach (array('select','checkbox','text','textarea','radio') as $type) :?>
-										<option value="<?php echo $type;?>"  
-											<?php echo ($field['type'] == $type) ? 'selected="true"' : null;?>
-										><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
-									<?php endforeach;?> 
-								</select><br/><br/>
-								<input type="text" name="values[<?php echo $i;?>]" value="<?php echo ($field['values']);?>" class="input-medium"/>
+					<h2><?php echo JText::_('COM_PBEVENTS_CREATE_EVENT');?></h3>
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_EVENT_NAME');?></label>
+								<div class="controls"><input type="text" class="input-xxlarge" name="event_name" value="<?php echo (isset($this->event->event_name)) ? $this->event->event_name : null;?>" size="80"/></div>
 							</div>
-							<div class="span1 fields-checkbox"><input type="checkbox" name="is_email[<?php echo $i;?>]" value="1" <?php echo (isset($field['is_email']) && $field['is_email'] == 1) ? 'checked' : null;?>/></div>
-							<div class="span1 fields-checkbox"><input type="checkbox" name="display_in_list[<?php echo $i;?>]" value="1" <?php echo (isset($field['display_in_list']) && $field['display_in_list'] == 1) ? 'checked' : null;?>/></div>
-							<div class="span1"><input type="text" size="4" class="input-mini" name="ordering[<?php echo $i;?>]" value="<?php echo isset($field['ordering']) ? $field['ordering'] : 1;?>"/></div>
+
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_EVENT_DESCRIPTION');?></label>
+								<div class="controls"><textarea name="description" class="input-xxlarge" rows="10" ><?php echo (isset($this->event->description)) ? $this->event->description : null;?></textarea></div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_START');?></label>
+								<div class="controls"><input type="text" class="input-medium" name="dtstart" id="dtstart" value="<?php echo (isset($this->event->dtstart)) ? date_create($this->event->dtstart)->format('Y-m-d H:i:s') : null;?>"/></div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_END');?></label>
+								<div class="controls"><input type="text" class="input-medium" name="dtend" id="dtend" value="<?php echo (isset($this->event->dtend)) ? date_create($this->event->dtend)->format('Y-m-d H:i:s') : null;?>"/></div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_MAX_PEOPLE');?></label>
+								<div class="controls"><input type="text" class="input-small" name="max_people" value="<?php echo (isset($this->event->max_people)) ? $this->event->max_people : 0;?>"/><i><?php echo JText::_('COM_PBEVENTS_MAX_PEOPLE_UNLIMIT');?></i></div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SUCCESS_URL');?></label>
+								<div class="controls"><input type="text" class="input-xxlarge" name="confirmation_page" value="<?php echo (isset($this->event->confirmation_page)) ? $this->event->confirmation_page : $this->config->default_success_URL;?>" size="80"/></div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_FAIL_URL');?></label>
+								<div class="controls"><input type="text" class="input-xxlarge" name="failed_page" value="<?php echo (isset($this->event->failed_page)) ? $this->event->failed_page : $this->config->default_failure_URL;?>" size="80"/></div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SHOW_COUNTER');?></label>
+								<div class="controls"><input type="hidden" name="show_counter" value="0"><input type="checkbox" name="show_counter" value="1" <?php echo (isset($this->event->show_counter) && $this->event->show_counter == 1) ? 'checked' : null;?>></div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SHOW_ATTENDEES');?></label>
+								<div class="controls"><input type="hidden" name="show_attendees" value="0"><input type="checkbox" name="show_attendees" value="1" <?php echo (isset($this->event->show_attendees) && $this->event->show_attendees == 1) ? 'checked' : null;?>></div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_REQUIRE_CAPTCHA');?></label>
+								<div class="controls"><input type="hidden" name="require_captcha" value="0"><input type="checkbox" name="require_captcha" value="1" <?php echo (isset($this->event->require_captcha) && $this->event->require_captcha > 0) ? 'checked' : ((isset($this->config->require_captcha) && $this->config->require_captcha > 0) ? 'checked' : null);?> /></div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_NOTIFY_FAILURE');?></label>
+								<div class="controls"><input type="checkbox" name="email_admin_failure" value="1" <?php echo (isset($this->event->email_admin_failure) && $this->event->email_admin_failure > 0 ) ? 'checked' : null;?>/></div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_NOTIFY_SUCCESS');?></label>
+								<div class="controls"><input type="checkbox" name="email_admin_success" value="1" <?php echo (isset($this->event->email_admin_success) && $this->event->email_admin_success > 0 ) ? 'checked' : null;?>/></div>
+							</div>
+							<div class="control-group">
+								<label class="control-label"><?php echo JText::_('COM_PBEVENTS_SEND_NOTIFICATIONS_TO');?></label>
+								<div class="controls"><input type="text" class="input-xxlarge" name="send_notifications_to" value="<?php echo (isset($this->event->send_notifications_to)) ? $this->event->send_notifications_to : $this->config->default_notification_email;?>" size="80"/></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="tabEventFields"
+
+					<div class="row-fluid">
+
+
+
+						<div class="row-fluid fields-header">
+							<div class="span1"></div>
+							<div class="span3"><?php echo JText::_('COM_PBEVENTS_FIELD_LABEL');?></div>
+							<div class="span2"><?php echo JText::_('COM_PBEVENTS_FIELD_VAR');?></div>
+							<div class="span1"><?php echo JText::_('COM_PBEVENTS_FIELD_REQUIRED');?></div>
+							<div class="span2"><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE');?>/<br/><?php echo JText::_('COM_PBEVENTS_FIELD_VALUES');?></div>
+							<div class="span1"><?php echo JText::_('COM_PBEVENTS_FIELD_VALIDATE_AS_EMAIL');?></div>
+							<div class="span1"><?php echo JText::_('COM_PBEVENTS_DISPLAY_IN_FRONT_END_ATTENDEE_LIST');?></div>
+							<div class="span1"><?php echo JText::_('COM_PBEVENTS_CUSTOMFIELD_ORDERING');?></div>
 						</div>
 
-						<hr/>				
+						<div class="fields-container">
 
-						<?php $i++;?>
+							<?php if (!isset($this->event->fields) || $this->event->fields == '' || $this->event->fields == '[]') :?>
 
-					<?php endforeach;?>
+								<div id="fields-row-0" class="row-fluid fields-data">
+									<div class="span1 fields-checkbox"><input type="checkbox" name="cid[]" value="0"/></div>
+									<div class="span3"><input type="text" name="label[0]" value="" class="input-large"/></div>
+									<div class="span2"><input type="text" name="var[0]" value="" class="input-medium"/></div>
+									<div class="span1 fields-checkbox"><input type="checkbox" name="required[]" value="1"/></div>
+									<div class="span2">
+										<select name="type[0]" class="input-medium">
+											<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
+											<?php foreach (array('select','checkbox','text','textarea','radio') as $type) :?>
+												<option value="<?php echo $type;?>"><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
+											<?php endforeach;?> 
+										</select><br/><br/>
+										<input type="text" name="values[0]" value="" class="input-medium"/>
+									</div>
+									<div class="span1 fields-checkbox"><input type="checkbox" name="is_email[0]" value="1"/></div>
+									<div class="span1 fields-checkbox"><input type="checkbox" name="display_in_list[0]" value="1"/></div>
+									<div class="span1"><input type="text" class="input-mini" name="ordering[0]" value="<?php echo isset($field['ordering']) ? $field['ordering'] : 1;?>"/></div>
+								</div>
 
-				<?php endif;?>
+								<hr/>
 
+							<?php else:?>
+
+								<?php $i=0;?>
+								<?php foreach (json_decode($this->event->fields,true) as $field):?>
+
+									<div id="fields-row-<?php echo $i;?>" class="row-fluid fields-data">
+										<div class="span1 fields-checkbox"><input type="checkbox" name="cid[]" value="<?php echo $i;?>"/></div>
+										<div class="span3"><input type="text" name="label[<?php echo $i;?>]" value="<?php echo $field['label'];?>" class="input-large"/></div>
+										<div class="span2"><input type="text" name="var[<?php echo $i;?>]" value="<?php echo $field['var'];?>" class="input-medium"/></div>
+										<div class="span1 fields-checkbox"><input type="checkbox" name="required[<?php echo $i;?>]" value="1" <?php echo (isset($field['required']) && $field['required'] == 1) ? 'checked' : null;?> /></div>
+										<div class="span2">
+											<select name="type[<?php echo $i;?>]" class="input-medium">
+												<option value=""><?php echo JText::_('COM_PBEVENTS_SELECT_PROMPT');?></option>
+												<?php foreach (array('select','checkbox','text','textarea','radio') as $type) :?>
+													<option value="<?php echo $type;?>"  
+														<?php echo ($field['type'] == $type) ? 'selected="true"' : null;?>
+													><?php echo JText::_('COM_PBEVENTS_FIELD_TYPE_'.strtoupper($type));?></option>
+												<?php endforeach;?> 
+											</select><br/><br/>
+											<input type="text" name="values[<?php echo $i;?>]" value="<?php echo ($field['values']);?>" class="input-medium"/>
+										</div>
+										<div class="span1 fields-checkbox"><input type="checkbox" name="is_email[<?php echo $i;?>]" value="1" <?php echo (isset($field['is_email']) && $field['is_email'] == 1) ? 'checked' : null;?>/></div>
+										<div class="span1 fields-checkbox"><input type="checkbox" name="display_in_list[<?php echo $i;?>]" value="1" <?php echo (isset($field['display_in_list']) && $field['display_in_list'] == 1) ? 'checked' : null;?>/></div>
+										<div class="span1"><input type="text" size="4" class="input-mini" name="ordering[<?php echo $i;?>]" value="<?php echo isset($field['ordering']) ? $field['ordering'] : 1;?>"/></div>
+									</div>
+
+									<hr/>				
+
+									<?php $i++;?>
+
+								<?php endforeach;?>
+
+							<?php endif;?>
+
+						</div>
+
+
+						<div class="clr"></div>
+
+						<div class="row-fluid">
+							<div class="span9">
+								</div><div class="span3" style="padding-top:10px;line-height:40px;">
+								<a href="#" class="btn btn-success btn-add-field"><?php echo JText::_('COM_PBEVENTS_ADD_CUSTOMFIELD');?></a>&nbsp;
+								<a href="#" class="btn btn-warning btn-del-field"><?php echo JText::_('COM_PBEVENTS_DELETE_CUSTOMFIELD');?></a>&nbsp;
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-
-
-			<div class="clr"></div>
-			
-			<div>
-				<input type="hidden" name="id" value="<?php echo (isset($this->event->id)) ? $this->event->id : 0;?>"/>
-				<input type="hidden" name="task" value="" />
-				<input type="hidden" name="return" value="<?php echo JRequest::getCmd('return');?>" />
-				<?php echo JHtml::_('form.token'); ?>
-			</div>
+		</div>
+		<input type="hidden" name="id" value="<?php echo (isset($this->event->id)) ? $this->event->id : 0;?>"/>
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="return" value="<?php echo JRequest::getCmd('return');?>" />
+		<?php echo JHtml::_('form.token'); ?>
 		</form>
+
 	</div>
 </div>
 
