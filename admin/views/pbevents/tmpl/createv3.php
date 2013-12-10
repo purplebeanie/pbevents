@@ -25,6 +25,7 @@ $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts
 $doc->addStyleSheet(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/datepicker_dashboard/datepicker_dashboard.css');
 $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/com_pbevents.administrator.create.js');
 $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/com.purplebeanie.general.js');
+$doc->addStyleSheet(JURI::root(false).'administrator/components/com_pbevents/css/pbevents.css');
 ?>
 
 
