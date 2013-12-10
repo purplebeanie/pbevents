@@ -106,7 +106,7 @@ class plgContentPbevents extends JPlugin
 							$this->_email_admin($event,'success');
 						$this->_emailUser($event);
 						error_log('redirecting to '.$event->confirmation_page);
-						//JFactory::getApplication()->redirect($event->confirmation_page);
+						JFactory::getApplication()->redirect($event->confirmation_page);
 						return;
 					} else {
 						error_log('redirecting to '.$event->failed_page);
