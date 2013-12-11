@@ -10,24 +10,24 @@ defined('_JEXEC') or die;
 
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+include(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'pbsupportfunctions.php');
 
 // Load the tooltip behavior.
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 
+
 $doc = JFactory::getDocument();
-$doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/Locale.'.$this->config->date_picker_locale.'.DatePicker.js');
-$doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/Picker.js');
-$doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/Picker.Attach.js');
-$doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/Picker.Date.js');
-//$doc->addStyleSheet(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/style.css');
-$doc->addStyleSheet(JURI::root(false).'administrator/components/com_pbevents/scripts/datepicker/datepicker_dashboard/datepicker_dashboard.css');
 $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/com_pbevents.administrator.create.js');
 $doc->addScript(JURI::root(false).'administrator/components/com_pbevents/scripts/com.purplebeanie.general.js');
 $doc->addStyleSheet(JURI::root(false).'administrator/components/com_pbevents/css/pbevents.css');
+
+
 ?>
 
+<?php require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'checkbootstrap.php');?>
+<script src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/scripts/com_pbevents.administrator.viewattendees.js"></script>
 
 
 
@@ -38,29 +38,13 @@ textarea {width:90%;}
 </style>
 
 
-<?php require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'checkbootstrap.php');?>
-
 
 <script>
 
-window.addEvent('domready', function(){
-	new Picker.Date($$('input[name=dtstart]'), {
-		timePicker: true,
-		positionOffset: {x: 5, y: 0},
-		pickerClass: 'datepicker_dashboard',
-		useFadeInOut: !Browser.ie,
-		format: '%Y-%m-%d %H:%M:00'
-	});
-		new Picker.Date($$('input[name=dtend]'), {
-		timePicker: true,
-		positionOffset: {x: 5, y: 0},
-		pickerClass: 'datepicker_dashboard',
-		useFadeInOut: !Browser.ie,
-		format: '%Y-%m-%d %H:%M:00'
-	});
-});
 
 jQuery(document).ready(function($){
+
+	jQuery('.date').datetimepicker({timeFormat:'hh:mm:ss', dateFormat: 'yy-mm-dd'});
 
 	//listen for the add record click	
 	$('.btn-add-field').click(function(event)
@@ -139,12 +123,12 @@ jQuery(document).ready(function($){
 
 					<div class="control-group">
 						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_START');?></label>
-						<div class="controls"><input type="text" class="input-medium" name="dtstart" id="dtstart" value="<?php echo (isset($this->event->dtstart)) ? date_create($this->event->dtstart)->format('Y-m-d H:i:s') : null;?>"/></div>
+						<div class="controls"><input type="text" class="input-medium date" name="dtstart" id="dtstart" value="<?php echo (isset($this->event->dtstart)) ? date_create($this->event->dtstart)->format('Y-m-d H:i:s') : null;?>"/></div>
 					</div>
 
 					<div class="control-group">
 						<label class="control-label"><?php echo JText::_('COM_PBEVENTS_END');?></label>
-						<div class="controls"><input type="text" class="input-medium" name="dtend" id="dtend" value="<?php echo (isset($this->event->dtend)) ? date_create($this->event->dtend)->format('Y-m-d H:i:s') : null;?>"/></div>
+						<div class="controls"><input type="text" class="input-medium date" name="dtend" id="dtend" value="<?php echo (isset($this->event->dtend)) ? date_create($this->event->dtend)->format('Y-m-d H:i:s') : null;?>"/></div>
 					</div>
 
 					<div class="control-group">
