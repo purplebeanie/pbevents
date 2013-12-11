@@ -400,4 +400,43 @@ class PbeventsController extends JControllerLegacy
         else 
             return $parser->get_items();
     }
+
+    /**
+    * creates a new RSVP for the event
+    * @access public
+    * @since 0.3.4
+    */
+
+    public function creatersvp()
+    {
+        
+        $db =JFactory::getDbo();
+        $input = JFactory::getApplication()->input;
+        $event_id = $input->get('event_id',0,'integer');
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $view = $this->getView('pbevents','raw');
+            $view->event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$event_id)->loadObject();
+            $view->fields = json_decode($view->event->fields,true);
+
+            $view->setLayout('creatersvp');
+
+            $view->display();
+        } else {
+            //need to add the new RSVP to the system.
+            $event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$event_id)->loadObject();
+            $data = array(); //contains the rsvp
+            foreach (json_decode($event->fields,true) as $field) {
+                $data[$field['var']] = ($field['type'] == 'checkbox') ? implode(',',$input->get($field['var'],null,'array')) : $input->get($field['var'],null,'string');
+            }
+            $rsvp = new JObject(array('event_id'=>$event->id,'data'=>json_encode($data)));
+            if ($db->insertObject('#__pbevents_rsvps',$rsvp)) {
+                //echo json_encode(array('status'=>'success','msg'=>JText::_('COM_PBEVENTS_NEW_ATTENDEE_ADDED')));
+                $this->setRedirect('index.php?option=com_pbevents&task=viewattendees&id='.$event->id);
+                return;
+            } else {
+                return false;
+            }
+        }
+    }
 }

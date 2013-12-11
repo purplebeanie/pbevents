@@ -13,9 +13,15 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.multiselect');
  
 defined('_JEXEC') or die('Restricted access'); 
-?>
 
+?>
 <?php require_once(JPATH_BASE.DS.'components'.DS.'com_pbevents'.DS.'assets'.DS.'checkbootstrap.php');?>
+<script src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/assets/jquery/jquery-ui-1.10.2.custom.min.js"></script>
+<script src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/assets/jquery/jquery.ui.dialog.min.js"></script>
+<script src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/assets/jquery/jquery.ui.button.min.js"></script>
+<script src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/assets/jquery/jquery.ui.position.min.js"></script>
+<link rel="stylesheet" href="<?php echo JURI::root(false);?>administrator/components/com_pbevents/assets/jquery/themes/base/jquery.ui.all.css"/>
+<script src="<?php echo JURI::root(false);?>administrator/components/com_pbevents/scripts/com_pbevents.administrator.viewattendees.js"></script>
 
 
 <form action="<?php echo JRoute::_('index.php?option=com_pbevents&task=viewattendees');?>" method="post" name="adminForm" id="adminForm">  

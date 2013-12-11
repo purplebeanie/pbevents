@@ -21,23 +21,6 @@ class PbeventsViewPbevents extends JViewLegacy
 		$input = JFactory::getApplication()->input;
 		$task = JRequest::getVar('task');
 
-		switch ($task) {
-			case 'editconfiguration':
-				$input->set('hidemainmenu',true);
-        		JToolBarHelper::cancel('cancel');
-				break;
-			case 'listevents':
-				break;
-			case 'add':
-				JToolBarHelper::cancel('cancel');
-				JFactory::getApplication()->input->set('hidemainmenu', true);				
-				break;
-			case 'viewattendees':
-				$bar=JToolBar::getInstance( 'toolbar' );
-				$bar->appendButton( 'PBCustom', 'plus',JText::_('COM_PBEVENTS_ATTENDEE_ADD'));
-				break;
-
-		}
 
         // display...... do I need to modify the layout?????
         if (JOOMLA_VERSION != '2.5' || 1==1)
