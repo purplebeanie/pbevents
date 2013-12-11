@@ -439,4 +439,38 @@ class PbeventsController extends JControllerLegacy
             }
         }
     }
+
+    /**
+    * exports the attendees in csv format
+    * @access public
+    * @since 0.3.4
+    */
+
+    public function export()
+    {
+        $input = JFactory::getApplication()->input;
+        $db = JFactory::getDbo();
+
+        $eventId = $input->get('event_id',0,'integer');
+        if ($eventId) {
+            $rsvps = $db->setQuery('select * from #__pbevents_rsvps where event_id = '.(int)$eventId)->loadObjectList();
+            header("Content-type: text/csv");
+            header("Content-Disposition: attachment;filename=export.csv");
+
+            $fp = fopen("php://output",'w');
+
+            //output the header row
+            $row = $rsvps[0];
+            $colHeaders = array_keys(json_decode($row->data,true));
+            fputcsv($fp, $colHeaders);
+
+            //now output the data.
+            foreach ($rsvps as $rsvp) {
+                fputcsv($fp,array_values(json_decode($rsvp->data,true)));
+            }
+
+            fclose($fp);
+        }
+
+    }
 }
