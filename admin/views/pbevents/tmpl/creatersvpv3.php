@@ -46,6 +46,7 @@
 	</table>
 	<input type="hidden" name="event_id" value="<?php echo $this->event->id;?>"/>
 	<button type="button" class="btn btn-success"><?php echo JText::_('COM_PBEVENTS_ADD_CUSTOMFIELD');?></button>
+	<button type="button" class="btn btn-warning"><?php echo JText::_('COM_PBEVENTS_ADD_CANCELLED');?></button>
 </form>
 <div style="clear:both;"></div>
 
