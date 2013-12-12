@@ -9,6 +9,7 @@
 // No direct access
  
 defined( '_JEXEC' ) or die( 'Restricted access' );
+jimport('cms.html.html');
 
 $version = new JVersion();
 $input = JFactory::getApplication()->input;
