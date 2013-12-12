@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 ?> 
 <script>
 
-PurpleBeanie.jquery(document).ready(function($){
+jQuery(document).ready(function($){
 
 	$('.pbevents-submit').click(function(e){
 		//get the form and validate it.
@@ -28,7 +28,7 @@ PurpleBeanie.jquery(document).ready(function($){
 //modified to try and scale to multiple forms on one page.
 function validate_form(form)
 {
-	var event_id = PurpleBeanie.jquery(form).find('input[name="event_id"]').val();
+	var event_id = jQuery(form).find('input[name="event_id"]').val();
 	var error = false;
 
 	fields[event_id.toString()].each(function(el,idx){
@@ -37,28 +37,28 @@ function validate_form(form)
 
 		switch (el.type) {
 			case 'select':
-				field = PurpleBeanie.jquery(form).find('select[name="'+el['var']+'"]');
+				field = jQuery(form).find('select[name="'+el['var']+'"]');
 				field_value = field.val();
 				break;
 			case 'textarea':
-				field = PurpleBeanie.jquery(form).find('textarea[name="'+el['var']+'"]');
+				field = jQuery(form).find('textarea[name="'+el['var']+'"]');
 				field_value = field.val();	
 				break;			
 			case 'text':
-				field = PurpleBeanie.jquery(form).find('input[name="'+el['var']+'"]');
+				field = jQuery(form).find('input[name="'+el['var']+'"]');
 				field_value = field.val();
 				break;
 			case 'checkbox':
 				field_name  = el['var']+'[]';
-				field = PurpleBeanie.jquery(form).find('input[name="'+el['var']+'[]"]');
-				field_checked = PurpleBeanie.jquery(form).find('input[name="'+el['var']+'[]"]:checked');
+				field = jQuery(form).find('input[name="'+el['var']+'[]"]');
+				field_checked = jQuery(form).find('input[name="'+el['var']+'[]"]:checked');
 				if (field_checked.length>0)
 					field_value = 'yes';
 				break;
 			case 'radio':
-				field = PurpleBeanie.jquery(form).find('input[name="'+el['var']+'"]');
+				field = jQquery(form).find('input[name="'+el['var']+'"]');
 				field_value = '';
-				field_checked = PurpleBeanie.jquery(form).find('input[name="'+el['var']+'"]:checked');
+				field_checked = jQuery(form).find('input[name="'+el['var']+'"]:checked');
 				if (field_checked.length>0)
 					field_value='yes';
 				break;

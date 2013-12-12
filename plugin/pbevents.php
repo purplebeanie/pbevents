@@ -11,7 +11,7 @@ jimport('joomla.mail.helper');
 
 
 $version = new JVersion();
-if ($version->RELEASE != '2.5')
+if (!defined('DS'))
 	define('DS',DIRECTORY_SEPARATOR);
 /**
  * Class for PBEvents PLugin
@@ -71,7 +71,7 @@ class plgContentPbevents extends JPlugin
 					JHtml::_('behavior.framework');
 					$doc = JFactory::getDocument();
 					include(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'inject_custom_fields.php');
-					echo '<script src="'.JURI::root(false).'administrator/components/com_pbevents/assets/jquery-1.9.1.min.js"></script>';
+					echo '<script src="'.JURI::root(false).'administrator/components/com_pbevents/assets/jquery-1.9.1.original.min.js"></script>';
 					require_once(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'pbevents.php');
 					echo '<link rel="stylesheet" href="'.JURI::root(false).'plugins/content/pbevents/styles/pbevents.css" type="text/css"/>';
 

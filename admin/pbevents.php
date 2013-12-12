@@ -18,7 +18,7 @@ $task = $input->get('task',null,'string');
 
 define('PBEVENTS_MODE','debug');
 define('JOOMLA_VERSION',$version->RELEASE);
-if ($version->RELEASE != '2.5')
+if (!defined('DS'))
 	define('DS',DIRECTORY_SEPARATOR);
 
  
