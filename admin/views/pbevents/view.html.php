@@ -36,6 +36,8 @@ class PbeventsViewPbevents extends JViewLegacy
 				$bar=JToolBar::getInstance( 'toolbar' );
 				$bar->appendButton( 'PBCustom', 'plus',JText::_('COM_PBEVENTS_ATTENDEE_ADD'));
 				$bar->appendButton('Link','download',JText::_('COM_PBEVENTS_ATTENDEE_EXPORT'),'index.php?option=com_pbevents&task=export&format=raw&event_id='.$this->event->id);
+				$bar->appendButton('PBCustom','edit',JText::_('COM_PBEVENTS_ATTENDEE_EDIT'));
+				JText::script('COM_PBEVENTS_ATTENDEE_EDIT_PLS_CHOOSE');
 				break;
 
 		}

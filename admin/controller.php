@@ -441,6 +441,45 @@ class PbeventsController extends JControllerLegacy
     }
 
     /**
+    * edits an existing rsvp
+    * @access public
+    * @since 0.3.4
+    */
+
+    public function editrsvp()
+    {
+        $db = JFactory::getDbo();
+        $input = JFactory::getApplication()->input;
+        $rsvpid = $input->get('rsvpid',0,'integer');
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $view = $this->getView('pbevents','raw');
+            $view->rsvp = $db->setQuery('select * from #__pbevents_rsvps where id = '.(int)$rsvpid)->loadObject();
+            $view->event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$view->rsvp->event_id)->loadObject();
+            $view->fields = json_decode($view->event->fields,true);
+
+            $view->setLayout('creatersvp');
+
+            $view->display();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $rsvp = $db->setQuery('select * from #__pbevents_rsvps where id = '.(int)$rsvpid)->loadObject();
+            $event = $db->setQuery('select * from #__pbevents_events where id = '.(int)$rsvp->event_id)->loadObject();
+            $data = array();
+            foreach (json_decode($event->fields,true) as $field) {
+                $data[$field['var']] = ($field['type'] == 'checkbox') ? implode(',',$input->get($field['var'],null,'array')) : $input->get($field['var'],null,'string');
+            }
+            $rsvp->data = json_encode($data);
+            if ($db->updateObject('#__pbevents_rsvps',$rsvp,'id'))
+                $this->setRedirect('index.php?option=com_pbevents&task=viewattendees&id='.$event->id,JText::_('COM_PBEVENTS_ATTENDEE_UPDATED'));
+            else 
+                $this->setRedirect('index.php?option=com_pbevents&task=viewattendees&id='.$event->id,JText::_('COM_PBEVENTS_UPDATE_FAILED').' '.$db->getErrorMsg());
+        }
+    }
+
+    /**
     * exports the attendees in csv format
     * @access public
     * @since 0.3.4
