@@ -50,7 +50,7 @@ monthNamesShort
 	//monthNames, monthNamesShort
 	$dtLocalisation['monthNames'] = array();
 	$dtLocalisation['monthNamesShort'] = array();
-	$boy = date_create("first day of this year",new DateTimeZone($config->get('offset')));
+	$boy = date_create("first day of january",new DateTimeZone($config->get('offset')));
 	for ($i=0;$i<12;$i++) {
 		$dtLocalisation['monthNames'][] = JHtml::_('date',$boy->format(DATE_ATOM),'F');
 		$dtLocalisation['monthNamesShort'][] = JHtml::_('date',$boy->format(DATE_ATOM),'M');
