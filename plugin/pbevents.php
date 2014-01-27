@@ -152,35 +152,49 @@ class plgContentPbevents extends JPlugin
 		if ($event->show_attendees == 1)
 			$form .= $this->_addAttendeesList($event);
 		foreach (json_decode($event->fields,true) as $field) {
+			// var_dump($field[required]);
+	if ($field[required]!= NULL)
+	{$required="required aria-required='true'";
+	 $star="<span class='star'>*</span>";
+	}
+			else
+			{$star="";
+				$required=" aria-required='false'";}
+
+
 			switch($field['type']) {
 				case 'text':
-					$form .= sprintf('<tr><td><label>%s</label></td><td><input type="text" name="%s" value=""/></td></tr>',
+					$form .= sprintf('<div class="formelm"><label for="for'.$field['var'].'">%s '.$star.' </label><input '. $required.'   type="text" name="%s" value="" id="for'.$field['var'].'"/></div>',
 							$field['label'],$field['var']);
 					break;
 				case 'radio':
-					$form.='<tr><td><label>'.$field['label'].'</label></td><td>';
+					$form.='<div class="formelm"><label>'.$field['label'].'</label></div>';
 					foreach (explode('|',$field['values']) as $value) {
 						$form.='<input type="radio" value="'.$value.'" name="'.$field['var'].'"/> <label>'.$value.'</label> ';
 					}
 					$form.='</td></tr>';
 					break;
 				case 'textarea':
-					$form .='<tr><td><label>'.$field['label'].'</kabe></td><td><textarea name="'.$field['var'].'"></textarea></td></tr>';
+					$form .='<div class="formelm"><label for="for'.$field['var'].'">'.$field['label'].'</label><textarea name="'.$field['var'].'" id="for'.$field['var'].'"></textarea></div>';
 					break;
 				case 'checkbox':
-					$form.='<tr><td><label>'.$field['label'].'</label></td><td>';
+					$form.='<div class="formelm"><p class="beschreibung">'.$field['label'].'</p>';
 					foreach (explode('|',$field['values']) as $value) {
-						$form.='<input type="checkbox" value="'.$value.'" name="'.$field['var'].'[]"/> <label>'.$value.'</label><br/>';
+						$form.='<div class="formboxes"><input id="for'.$field['var'].'" type="checkbox" value="'.$value.'" name="'.$field['var'].'[]"/> <label  for="for'.$field['var'].'">'.$value.'</label></div>';
 					}
-					$form.='</td></tr>';
+					$form.='</div>';
 					break;
 				case 'select':
-					$form .= '<tr><td><label>'.$field['label'].'</label></td>';
-					$form.= '<td><select name="'.$field['var'].'">';
+
+					$form .= '<div class="formelm"><label>'.$field['label'].$star.'</label>';
+
+
+					$form.= '<select name="'.$field['var'].'" ' .$required.'>';
+
 					foreach (explode('|',$field['values']) as $value) {
 						$form.='<option value="'.$value.'">'.$value.'</option>';
 					}
-					$form .='</select></td></tr>';
+					$form .='</select></div>';
 					break;
 			}
 			
