@@ -9,6 +9,9 @@ defined('_JEXEC') or die;
 
 jimport('joomla.mail.helper');
 
+JHtml::_('behavior.framework');
+JHtml::_('jquery.framework');
+
 
 $version = new JVersion();
 if (!defined('DS'))
@@ -68,10 +71,9 @@ class plgContentPbevents extends JPlugin
 					}
 
 					//inject the form, javascript and, css
-					JHtml::_('behavior.framework');
 					$doc = JFactory::getDocument();
 					include(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'inject_custom_fields.php');
-					echo '<script src="'.JURI::root(false).'administrator/components/com_pbevents/assets/jquery-1.9.1.original.min.js"></script>';
+					//echo '<script src="'.JURI::root(false).'administrator/components/com_pbevents/assets/jquery-1.9.1.original.min.js"></script>';
 					require_once(JPATH_BASE.DS.'plugins'.DS.'content'.DS.'pbevents'.DS.'scripts'.DS.'pbevents.php');
 					echo '<link rel="stylesheet" href="'.JURI::root(false).'plugins/content/pbevents/styles/pbevents.css" type="text/css"/>';
 
